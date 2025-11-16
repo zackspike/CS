@@ -19,7 +19,7 @@ class Conferencia {
         $this->ponenteConferencia = $ponenteConferencia;
         $this->tipo = $tipo;
         $this->numParticipantes = $numParticipantes;
-        $this->horarioConferencia = $this->horarioConferencia;
+        $this->horarioConferencia = $horario;
     }
     
     public function getIdConferencia() {
