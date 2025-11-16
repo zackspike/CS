@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/Categoria.php';
+
 /**
  * Description of Editorial
  *
