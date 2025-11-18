@@ -1,16 +1,20 @@
 <?php
 
-$hostname="localhost";
-$username="root";
-$password="";
-$database="filey_cs";
+class ConexionBD {
+    private $hostname = "localhost";
+    private $username = "root";
+    private $password = "";
+    private $database = "filey_cs";
+    
+    public function conectar() {
+        $mysqli = new mysqli($this->hostname, $this->username, $this->password, $this->database);
+        
+        if ($mysqli->connect_errno) {
+            die("No se pudo conectar a la base de datos");
+        }
+        $mysqli->set_charset("utf8");
 
+        return $mysqli;
+    }
+}
 
-$mysqli= new mysqli($hostname, $username, $password, $database);
-if(!$mysqli){
-    echo "No se pudo realizar la conexión PHP -MySQL";
-}
-else{
-    echo "La conexión se ha realizado";
-    $mysqli->close();
-}

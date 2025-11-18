@@ -1,18 +1,21 @@
 <?php
-
+/**
+ * @author KarenM
+* @author Isaac Herrera
+*/
 class Usuario {
     private int $idUsuario;
     private string $nombre;
     private string $email;
     private string $rolUsuario;
-    private string $contraseña;
+    private string $password;
     
-    public function __construct(int $idUsuario, string $nombre, string $email, string $rolUsuario, string $contraseña) {
+    public function __construct(int $idUsuario, string $nombre, string $email, string $rolUsuario, string $password) {
         $this->idUsuario = $idUsuario;
         $this->nombre = $nombre;
         $this->email = $email;
         $this->rolUsuario = $rolUsuario;
-        $this->contraseña = $contraseña;
+        $this->password = $password;
     }
     
     public function getIdUsuario(): int {
@@ -31,8 +34,8 @@ class Usuario {
         return $this->rolUsuario;
     }
 
-    public function getContraseña(): string {
-        return $this->contraseña;
+    public function getPassword(): string {
+        return $this->password;
     }
 
     public function setIdUsuario(int $idUsuario): void {
@@ -51,8 +54,8 @@ class Usuario {
         $this->rolUsuario = $rolUsuario;
     }
 
-    public function setContraseña(string $contraseña): void {
-        $this->contraseña = $contraseña;
+    public function setPassword(string $password): void {
+        $this->password = $password;
     }
 
 
