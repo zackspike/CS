@@ -1,44 +1,85 @@
 <?php
-
 use PHPUnit\Framework\TestCase;
+
 require_once __DIR__ . '/../../Modelo/Evento.php';
+require_once __DIR__ . '/../../Modelo/Fecha.php';
+require_once __DIR__ . '/../../Modelo/Hora.php';
+require_once __DIR__ . '/../../Modelo/Categoria.php';
+require_once __DIR__ . '/../../Modelo/Salon.php';
+
 
 class EventoTest extends TestCase {
 
-    //PRUEBA DE CONSTRUCTOR Y GETTERS
+    // PRUEBA DE CONSTRUCTOR Y GETTERS
     public function testConstructorYGetters(){
-
-
+        $id = 1;
         $titulo = 'Presentación Jesús Tec: Real Life';
-        $horaI = "12:00";
-        $horaF = "13:30";
-        $fecha = "18/11/2025";
+        $descripcion = 'Una plática sobre la vida real.';
+        $ponente = 'Jesús Tec';
+        $numParticipantes = 100;
+        $fecha = new Fecha(18, 11, 2025);
+        $horaI = new Hora(12, 0);
+        $horaF = new Hora(13, 30);
+        $tipoCupo = 'Limitado';
+        $categoria = new Categoria(1, "Autobiografía", "Experiencia del ponente");
+        $salon = new Salon(101, "Auditorio A", 150);
+        
 
-        $evento = new Evento($titulo,$horaI,$horaF,$fecha);
+        $evento = new Evento(
+            $id, $titulo, $descripcion, $ponente,
+            $numParticipantes, $fecha, $horaI, $horaF,
+            $tipoCupo, $categoria, $salon
+        );
 
-        $this->assertEquals($titulo, $evento->getTituloEvento());
-        $this->assertEquals($horaI, $evento->getHoraInicio());
-        $this->assertEquals($horaF, $evento->getHoraFinal());
-        $this->assertEquals($fecha, $evento->getFecha());
+        //PRUEBA GETTERS
+        $this->assertEquals($id, $evento->getIdEvento());
+        $this->assertEquals($titulo, $evento->getTitulo());
+        $this->assertEquals($descripcion, $evento->getDescripcion());
+        $this->assertEquals($ponente, $evento->getPonente());
+        $this->assertEquals($numParticipantes, $evento->getNumParticipantes());
+        $this->assertEquals($tipoCupo, $evento->getTipoCupo());
+        $this->assertSame($fecha, $evento->getFecha());
+        $this->assertSame($horaI, $evento->getHoraInicio());
+        $this->assertSame($horaF, $evento->getHoraFinal());
+        $this->assertSame($categoria, $evento->getCategoria());
+        $this->assertSame($salon, $evento->getUbicacion());
     }
 
-    //PRUEBA SETTERS
+    // PRUEBA SETTERS
     public function testSetters(){
-        $evento = new Evento("Cats and More", "13:30", "15:00", "18/11/2025");
+        $fecha = new Fecha(18, 11, 2025);
+        $horaI = new Hora(13, 30);
+        $horaF = new Hora(15, 0);
+        $categoria = new Categoria(1, "Presentación del libro", "Presentación de un libro nuevo por el autor");
+        $salon = new Salon(101, "Auditorio A", 150);
+        
+        $evento = new Evento(
+            1, "Gatos", "La vida de los gatos", "Karina Puch", 100,
+            $fecha, $horaI, $horaF, "General",
+            $categoria, $salon
+        );
 
-        $nuevoNombre = "Ahora es de perros";
-        $nuevaHoraFinal = "15:30";
+        $nuevoNombre = "Perros";
+        $nuevaHoraFinal = new Hora(15, 30);
+        $nuevoSalon = new Salon(102, "Auditorio B", 200);
+        $nuevoPonente="Isaac Pech";
 
-        $evento->setTituloEvento($nuevoNombre);
+        $evento->setTitulo($nuevoNombre);
         $evento->setHoraFinal($nuevaHoraFinal);
+        $evento->setPonente($nuevoPonente);
+        $evento->setUbicacion($nuevoSalon);
 
-        //REVISAR QUE HUBIERON CAMBIOS CORRECTAMENTE
-        $this->assertEquals($nuevoNombre, $evento->getTituloEvento());
-        $this->assertEquals($nuevaHoraFinal, $evento->getHoraFinal());
+        //VERIFICAR QUE SE HICIERON LOS CAMBIOS
+        $this->assertEquals($nuevoNombre, $evento->getTitulo());
+        $this->assertSame($nuevaHoraFinal, $evento->getHoraFinal());
+        $this->assertEquals($nuevoPonente, $evento->getPonente());
+        $this->assertSame($nuevoSalon, $evento->getUbicacion());
 
-        //REVISAR QUE LOS DEMAS NO CAMBIEN
-        $this->assertEquals("13:30", $evento->getHoraInicio());
-        $this->assertEquals("18/11/2025", $evento->getFecha());
-
+        //VERIFICAR QUE LOS DATOS NO MODIFICADOS SE CONSERVEN
+        $this->assertEquals(1, $evento->getIdEvento());
+        $this->assertSame($horaI, $evento->getHoraInicio());
+        $this->assertSame($fecha, $evento->getFecha());
+        $this->assertSame($categoria, $evento->getCategoria());
+        $this->assertEquals(100, $evento->getNumParticipantes());
     }
 }
