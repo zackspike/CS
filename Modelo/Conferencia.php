@@ -3,70 +3,31 @@
 /**
  * Description of Conferencia
  *
- * @author Gabriela Puch
+ * @author Isaac Herrera
  */
-class Conferencia {
-    private $idConferencia;
-    private $tituloConferencia;
-    private $ponenteConferencia;
-    private $tipo;
-    private $numParticipantes;
-    private $horarioConferencia;
+class Conferencia extends Evento {
+    private string $tipoConferencia;
     
-    public function __construct($idConferencia, $tituloConferencia, $ponenteConferencia, $tipo, $numParticipantes, $horario) {
-        $this->idConferencia = $idConferencia;
-        $this->tituloConferencia = $tituloConferencia;
-        $this->ponenteConferencia = $ponenteConferencia;
-        $this->tipo = $tipo;
-        $this->numParticipantes = $numParticipantes;
-        $this->horarioConferencia = $horario;
+    #[\Override]
+    public function __construct(int $idEvento,string $titulo,string $descripcion,string $ponente,int $numParticipantes,Fecha $fecha,Hora $horaInicio,
+        Hora $horaFinal,string $tipoCupo,Categoria $categoria,Salon $ubicacion,sring $tipoConferencia) {
+        
+        parent::__construct($idEvento, $titulo,$descripcion,$ponente,$numParticipantes,$fecha,$horaInicio,$horaFinal,$tipoCupo,$categoria,$ubicacion);
+        $this->tipoConferencia = $tipoConferencia;
     }
+
+    public function getTipoConferencia(): string {
+        return $this->tipoConferencia;
+    }
+
+    public function setTipoConferencia(string $tipoConferencia): void {
+        $this->tipoConferencia = $tipoConferencia;
+    }
+
+
+
     
-    public function getIdConferencia() {
-        return $this->idConferencia;
-    }
 
-    public function getTituloConferencia() {
-        return $this->tituloConferencia;
-    }
 
-    public function getPonenteConferencia() {
-        return $this->ponenteConferencia;
-    }
-
-    public function getTipo() {
-        return $this->tipo;
-    }
-
-    public function getNumParticipantes() {
-        return $this->numParticipantes;
-    }
-
-    public function getHorario() {
-        return $this->horarioConferencia;
-    }
-
-    public function setIdConferencia($idConferencia): void {
-        $this->idConferencia = $idConferencia;
-    }
-
-    public function setTituloConferencia($tituloConferencia): void {
-        $this->tituloConferencia = $tituloConferencia;
-    }
-
-    public function setPonenteConferencia($ponenteConferencia): void {
-        $this->ponenteConferencia = $ponenteConferencia;
-    }
-
-    public function setTipo($tipo): void {
-        $this->tipo = $tipo;
-    }
-
-    public function setNumParticipantes($numParticipantes): void {
-        $this->numParticipantes = $numParticipantes;
-    }
-
-    public function setHorario($horarioConferencia): void {
-        $this->horarioConferencia = $horarioConferencia;
-    }
+    
 }
