@@ -2,7 +2,7 @@
 /**
 * @author Isaac Herrera
 */
-require_once 'ConexionBD.php';
+require_once 'conexionBD.php';
 require_once 'Usuario.php'; 
 
 class UsuarioDAO {
