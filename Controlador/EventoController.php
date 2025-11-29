@@ -51,8 +51,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $evento = new Evento(0, $titulo, $descripcion, $ponente, $numParticipantes, $fecha, 
                 $horaInicial, $horaFin, $cupo, $tipoEvento, $idCat, $idSalon, $rutaImagen);
+                
+             if ($tipoEvento == 'conferencia') {
+            $tipoConf = $_POST['tipoConferencia'];
+            $evento->setTipoConferencia($tipoConf);
+            
+        } elseif ($tipoEvento == 'premiacion') {
+            $ganador = $_POST['ganadorPremiacion'];
+            $evento->setGanadorPremiacion($ganador);
+        }
+        
+        if ($eventoDAO->agregar($evento)) {
+            header("Location: ../Vista/gestionEventos.php?msg=creado");
+        } else {
+            header("Location: ../Vista/gestionEventos.php?error=fallo_creacion");
+        }   
     }
-
+    
 }
 
 ?>
