@@ -1,4 +1,10 @@
 <?php
+
+/**
+ *
+ * @author Isaac Herrera
+ */
+
 require_once '../Modelo/Categoria.php';
 require_once '../Modelo/CategoriaDAO.php';
 
@@ -32,4 +38,17 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_PO
         header("Location: ../Vista/categorias.php?error=fallo_actualizar");
     }
 }
+
+//Eliminar categoría
+else if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
+    
+    $idCategoria = $_GET['id'];
+    
+    if ($daoSalon->eliminar($idCategoria)) {
+        header("Location: ../Vista/categorias.php?msg=eliminado");
+    } else {
+        header("Location: ../Vista/categorias.php?error=no_borrado");
+    }
+}
+
 ?>
