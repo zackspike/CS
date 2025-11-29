@@ -87,5 +87,20 @@ class CategoriaDAO {
         $statement->close();
         return false;
     }
+
+    //Eliminar una categoría
+    public function eliminar($idCategoria) {
+        $sql = "DELETE FROM Categorias WHERE idCategoria = ?";
+        $statement  = $this->conexion->prepare($sql);
+        $statement ->bind_param("i", $idCategoria);
+        
+        if ($statement ->execute()) {
+            $statement ->close();
+            return true;
+        } else {
+            $statement ->close();
+            return false;
+        }
+    }
 }
 ?>
