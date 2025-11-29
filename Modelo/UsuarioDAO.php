@@ -1,9 +1,8 @@
 <?php
-/**
-* @author Isaac Herrera
-*/
-require_once 'conexionBD.php';
+
+require_once 'ConexionBD.php';
 require_once 'Usuario.php'; 
+require_once 'DAO.php';
 
 class UsuarioDAO {
     private $conexion;
