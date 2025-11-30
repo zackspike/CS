@@ -1,0 +1,101 @@
+/* 
+    Created on : 19 Nov 2025, 08:54:04
+*/
+.table-container { max-width: 1000px; margin: 40px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.tabla-registros { width: 100%; border-collapse: collapse; margin-top: 20px; }
+.tabla-registros th { background: #005288; color: white; padding: 12px; text-align: left; }
+.tabla-registros td { padding: 12px; border-bottom: 1px solid #eee; vertical-align: middle; }
+      
+/* Botones */
+.btn-constancia {
+    background-color: #005288;
+    color: white;
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 5px;
+ }
+
+.btn-constancia:hover {
+    background-color: white;
+    color: #005288;
+}
+
+.btn-cancelar { color: #dc3545; font-weight: bold; text-decoration: none; font-size: 0.9rem; display: inline-block; padding: 6px 10px; }
+       
+/* Botón Ver QR*/
+.btn-qr { 
+    background-color: #005288; 
+    color: white; 
+    padding: 6px 12px; 
+    text-decoration: none; 
+    border-radius: 4px; 
+    font-size: 0.9rem; 
+    font-weight: bold; 
+    border: none; 
+    cursor: pointer; 
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.btn-qr:hover { background-color: white; color: #005288;}
+.badge-pendiente { background: #ffc107; color: #333; padding: 3px 8px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; }
+.badge-asistio { color: green; font-weight: bold; }
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+}
+
+       
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+       
+.close-btn:hover { color: #000; }
+       
+
+
+.qr-info { color: #666; font-size: 0.9rem; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px;}
+
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(-20px); } 
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#qrcode {
+    width: 180px;
+    height: 180px;
+    background-color: #f0f0f0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+

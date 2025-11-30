@@ -1,0 +1,172 @@
+/* 
+    Created on : 9 Nov 2025, 18:56:24
+    Author     : Gabriela Puch
+*/
+
+/*General*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #005a8c 0%, #003d5c 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/*Contenedores*/
+.login-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-box {
+    background-color: #f1f1f1;
+    border-radius: 20px;
+    padding: 40px 35px;
+}
+
+.login-title {
+    color: #005288;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/*Forms*/
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #005288;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #005288;
+    box-shadow: 0 0 0 3px rgba(0, 74, 124, 0.1);
+}
+
+/*Botón de enviar*/
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #005288;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background-color: #003d5c;
+    transform: translateY(-2px);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+/* Sección de enlaces */
+.links {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #d0d0d0;
+}
+
+.links p {
+    color: #005288;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.link {
+    color: #005288;
+    text-decoration: underline;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    color: #003d5c;
+}
+
+/* Enlace de administrador */
+.admin-link {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #d0d0d0;
+}
+
+.admin-link .link {
+    font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .login-box {
+        padding: 30px 25px;
+    }
+    
+    .login-title {
+        font-size: 1.5rem;
+    }
+    
+    .form-group label {
+        font-size: 0.9rem;
+    }
+    
+    .form-group input {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+    
+    .btn-submit {
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+}
+
+.alert {
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.success { 
+    background-color: #d4edda;
+    color: #155724;
+}
