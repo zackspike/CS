@@ -1,5 +1,5 @@
 <?php
-require_once 'ConexionBD.php';
+require_once 'conexionBD.php';
 require_once 'Registro.php';
 
 class RegistroDAO {
