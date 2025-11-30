@@ -1,0 +1,213 @@
+/*
+    Created on : 9 Nov 2025
+*/
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Header */
+.header { background-color: #005288; padding: 1rem 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.header-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+.logo { height: 60px; width: auto; }
+
+.nav-menu { display: flex; gap: 2rem; align-items: center; }
+.nav-link { color: white; text-decoration: none; font-size: 1rem; font-weight: 500; transition: all 0.3s ease; padding: 0.5rem 1rem; border-radius: 4px; }
+.nav-link:hover { background-color: rgba(255, 255, 255, 0.1); }
+
+.usuario-info { color: white; margin-right: 10px; font-weight: 500; }
+.btn-logout { color: #ffcccc !important; }
+.btn-logout:hover { color: #ff9999 !important; text-decoration: underline; }
+
+/* --- Grids --- */
+.main-container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; width: 100%; }
+
+.welcome-section { text-align: center; margin-bottom: 40px; }
+.welcome-section h1 { color: #005288; font-size: 2.5rem; margin-bottom: 10px; }
+.welcome-section p { color: #666; font-size: 1.2rem; }
+
+.section-title { color: #005288; border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-bottom: 20px; }
+
+/* Filtros */
+.filter-bar { text-align: center; margin-bottom: 30px; }
+.filter-btn {
+    display: inline-block; padding: 8px 20px; margin: 5px; border-radius: 20px;
+    text-decoration: none; color: #555; background: white; border: 1px solid #ddd;
+    transition: all 0.3s; font-weight: 600;
+}
+.filter-btn:hover, .filter-btn.active { background-color: #005288; color: white; border-color: #005288; }
+
+/* grid de la parte principal */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+.empty-message { grid-column: 1 / -1; text-align: center; color: #888; font-size: 1.2rem; padding: 40px; }
+
+/* cards */
+.event-card {
+    background: white; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.3s;
+    display: flex; flex-direction: column; border: 1px solid #eee;
+}
+.event-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+/* Imágenes */
+.card-img-container { width: 100%; height: 250px; background-color: #eee; overflow: hidden; }
+.card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.event-card:hover .card-img { transform: scale(1.05); }
+.card-no-img { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #aaa; font-weight: bold; }
+
+/* Contenido Card */
+.card-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+
+.card-tag {
+    display: inline-block; padding: 4px 10px; border-radius: 12px;
+    font-size: 0.75rem; color: white; font-weight: bold; text-transform: uppercase;
+    margin-bottom: 10px; align-self: flex-start;
+}
+.tag-conferencia { background: #6f42c1; }
+.tag-taller { background: #28a745; }
+.tag-premiacion { background: #ffc107; color: #333; }
+
+.card-title { font-size: 1.2rem; color: #005288; margin-bottom: 8px; }
+.card-info { font-size: 0.9rem; color: #666; margin-bottom: 4px; }
+.card-desc { font-size: 0.9rem; color: #555; margin: 15px 0; flex-grow: 1; }
+
+/* Botones de Card */
+.card-btn {
+    display: block; text-align: center; background: #005288; color: white;
+    padding: 10px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: auto;
+}
+.card-btn:hover { background: #003f6b; }
+.btn-login { background: white; color: #005288; border: 1px solid #005288; }
+.btn-login:hover { background: #005288; color: white; }
+.btn-admin-edit { background: #6c757d; }
+
+.btn-constancia {
+    background-color: #005288;
+    color: white;
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 5px;
+ }
+
+.btn-constancia:hover {
+    background-color: white;
+    color: #005288;
+}
+
+/* Estilo especial para Editoriales */
+.editorial-style { border-top: 4px solid #005288; }
+
+/* footer */
+.footer { background-color: #005288; color: white; padding: 1.5rem 0; margin-top: auto; }
+.footer-content { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; gap: 20px; }
+
+.img-mini {
+    width: 200px;           
+    height: 200px;          
+    object-fit: cover;     
+    border: 1px solid #ddd; 
+    display: block;      
+}
+
+.tabla-bonita {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    font-family: Arial, sans-serif;
+}
+
+.tabla-bonita th {
+    text-align: left;
+    padding: 15px;
+    color: #005288; 
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #eee;
+    background-color: #fff;
+}
+
+.tabla-bonita td {
+    padding: 15px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+}
+
+.tabla-bonita tr:hover {
+    background-color: #f9f9f9;
+}
+
+.btn-rojo {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white !important;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-rojo:hover {
+    background-color: #c82333;
+}
+
+.editorial-style { border-top: 4px solid #005288; }
+
+.active-link { text-decoration: underline; font-weight: bold; background-color: rgba(255, 255, 255, 0.2); }
+
+.btn-border-reveal {
+  background-color: transparent;
+  color: white;
+  border: 2px solid #005288; /* Borde inicial azul */
+  /* OJO: Si quieres borde blanco inicial como tenías antes, cambia #005288 por white */
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  text-decoration: none;
+  z-index: 1;
+  padding: 8px 20px;
+  border-radius: 4px;
+  transition: color 0.3s ease;
+}
+
+.btn-border-reveal {
+  border: 2px solid white; 
+}
+
+.btn-border-reveal::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: white;
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.btn-border-reveal:hover::after {
+  width: 100%;
+}
+
+.btn-border-reveal:hover {
+  color: #005288; 
+}

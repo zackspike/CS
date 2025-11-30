@@ -1,0 +1,63 @@
+/* 
+    Created on : 18 Nov 2025, 13:11:54
+*/
+.admin-content {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+           
+.admin-welcome {
+    margin-bottom: 3rem;
+    color: #333;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    justify-content: center;
+}
+
+.admin-option {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    border-top: 5px solid #005288; /* Tu color azul */
+}
+
+.admin-option:hover {
+    transform: translateY(-10px);
+}
+
+.admin-option h3 {
+    color: #005288;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.admin-option p {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+            
+.btn-admin {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: #005288;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px; 
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-admin:hover {
+    background-color: #003f6b;
+}
