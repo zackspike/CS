@@ -1,0 +1,120 @@
+/* 
+    Created on : 18 Nov 2025, 14:22:47
+*/
+.crud-container { 
+    max-width: 1100px; 
+    margin: 2rem auto; 
+    padding: 0 20px; 
+    display: flex; 
+    gap: 30px; 
+    flex-wrap: wrap;
+}
+        
+/*Formulario*/
+.form-card { 
+    flex: 1; 
+    min-width: 300px;
+    background: white; 
+    padding: 25px; 
+    border-radius: 8px; 
+    height: fit-content; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+    border-top: 5px solid #005288;
+}
+        
+/* Listado de la tabla */
+.list-card { 
+    flex: 2; 
+    min-width: 400px;
+    background: white; 
+    padding: 25px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+}
+        
+/* Inputs */
+label { display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"], textarea { 
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-family: inherit;
+}
+
+/* Tabla */
+table { 
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td { 
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th { 
+    background-color: #f8f9fa;
+    color: #005288;
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+        
+/* Botones */
+.btn-action { 
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none; 
+    font-size: 0.9em;
+    margin-right: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #e0a800;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Mensajes */
+.alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
