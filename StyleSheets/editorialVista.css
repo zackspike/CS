@@ -1,0 +1,80 @@
+/* 
+    Created on : 30 Nov 2025, 21:59:37
+*/
+.main-container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+            
+.page-title {
+    text-align: center;
+    color: #005288;
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 20px;
+}
+
+.editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.editorial-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.editorial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,82,136,0.15);
+    border-color: #005288;
+}
+
+.card-header-icon {
+    background-color: #f8f9fa;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #005288;
+}
+
+.card-body {
+    padding: 20px;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.card-info {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.puesto-badge {
+    background-color: #005288;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
+}
