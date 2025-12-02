@@ -5,16 +5,10 @@
  * @author Isaac Herrera
  */
 
-require_once 'ConexionBD.php';
+require_once 'DAO.php';
 require_once 'Categoria.php';
 
-class CategoriaDAO {
-    private $conexion;
-
-        public function __construct() {
-        $bd = new ConexionBD();
-        $this->conexion = $bd->conectar();
-    }
+class CategoriaDAO extends DAO {
 
     public function agregar(Categoria $categoria) {
         $sql = "INSERT INTO Categorias (nombre, descripcion) VALUES (?, ?)";

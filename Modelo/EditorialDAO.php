@@ -1,16 +1,10 @@
 <?php
 
-require_once 'conexionBD.php';
+require_once 'DAO.php';
 require_once 'Editorial.php';
 
 
-class EditorialDAO {
-    private $conexion;
-
-    public function __construct() {
-        $bd = new ConexionBD();
-        $this->conexion = $bd->conectar();
-    }
+class EditorialDAO extends DAO {
 
     // Añadir una editorial
     public function agregar(Editorial $editorial) {

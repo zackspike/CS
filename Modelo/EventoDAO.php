@@ -1,15 +1,9 @@
 <?php
-require_once 'conexionBD.php';
+require_once 'DAO.php';
 require_once 'Evento.php';
 
 
-class EventoDAO{
-    private $conexion;
-
-    public function __construct() {
-        $bd = new ConexionBD();
-        $this->conexion = $bd->conectar();
-    }
+class EventoDAO extends DAO {
 
     public function agregar(Evento $evento) {
         try {
