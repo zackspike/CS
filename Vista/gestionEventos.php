@@ -226,14 +226,13 @@ $listaEventos = $eventoDAO->obtenerEventos();
                         </td>
                         <td><?php echo $ev['nombreSalon']; ?></td>
                         <td style="text-align: center;">
-                            <a href="verInscritos.php?idEvento=<?php echo $ev['idEvento']; ?>" 
+                            <a href="verInscritos.php?idEvento=<?php echo $ev['idEvento']; ?>"
                                class="btn-constancia"
-                               accesskey=""style="display:inline-block; margin-right:10px; text-decoration:none; color:#005288; 
-                               font-weight:bold; font-size:0.9rem;"> 
+                               >
                                 Inscritos
                             </a>
                            <a href="../Controlador/EventoController.php?accion=eliminar&id=<?php echo $ev['idEvento']; ?>" 
-                                class="btn-rojo" 
+                                class="btn-rojo"
                                 onclick="return confirm('¿Estás seguro de eliminar este evento?');">
                                 Borrar
                             </a>
