@@ -9,8 +9,8 @@ class Conferencia extends Evento {
     private string $tipoConferencia;
     
     #[\Override]
-    public function __construct(int $idEvento,string $titulo,string $descripcion,string $ponente,int $numParticipantes,Fecha $fecha,Hora $horaInicio,
-        Hora $horaFinal,string $tipoCupo,Categoria $categoria,Salon $ubicacion,sring $tipoConferencia) {
+    public function __construct(int $idEvento,string $titulo,string $descripcion,string $ponente,int $numParticipantes,string $fecha,string $horaInicio,
+        string $horaFinal,string $tipoCupo,Categoria $categoria,Salon $ubicacion,sring $tipoConferencia) {
         
         parent::__construct($idEvento, $titulo,$descripcion,$ponente,$numParticipantes,$fecha,$horaInicio,$horaFinal,$tipoCupo,$categoria,$ubicacion);
         $this->tipoConferencia = $tipoConferencia;
