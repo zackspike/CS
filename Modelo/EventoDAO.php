@@ -60,6 +60,46 @@ class EventoDAO extends DAO {
         }
     }
 
+    public function eliminar($idEvento) {
+        try {
+            $this->conexion->begin_transaction();
+
+            $sqlConf = "DELETE FROM Conferencias WHERE idEvento = ?";
+            $stmtConf = $this->conexion->prepare($sqlConf);
+            $stmtConf->bind_param("i", $idEvento);
+            $stmtConf->execute();
+            $stmtConf->close();
+
+            $sqlPrem = "DELETE FROM Premiaciones WHERE idEvento = ?";
+            $stmtPrem = $this->conexion->prepare($sqlPrem);
+            $stmtPrem->bind_param("i", $idEvento);
+            $stmtPrem->execute();
+            $stmtPrem->close();
+
+            $sqlTaller = "DELETE FROM Talleres WHERE idEvento = ?";
+            $stmtTaller = $this->conexion->prepare($sqlTaller);
+            $stmtTaller->bind_param("i", $idEvento);
+            $stmtTaller->execute();
+            $stmtTaller->close();
+
+            $sql = "DELETE FROM Eventos WHERE idEvento = ?";
+            $statement = $this->conexion->prepare($sql);
+            $statement->bind_param("i", $idEvento);
+
+            if (!$statement->execute()) {
+                throw new Exception("No se pudo eliminar el evento principal.");
+            }
+            $statement->close();
+
+            $this->conexion->commit();
+            return true;
+
+        } catch (Exception $e) {
+            $this->conexion->rollback();
+            return false;
+        }
+    }
+
     // Listar eventos con sus nombres de Categoria y su Salon correspondientes
     public function obtenerEventos() {
         $sql = "SELECT evento.*, categoria.nombre as nombreCategoria, salon.nombreSalon 

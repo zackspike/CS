@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $evento = new Evento(0, $titulo, $descripcion, $ponente, $numParticipantes, $fecha, 
                 $horaInicial, $horaFin, $cupo, $tipoEvento, $idCat, $idSalon, $rutaImagen);
                 
-             if ($tipoEvento == 'conferencia') {
+            if ($tipoEvento == 'conferencia') {
             $tipoConf = $_POST['tipoConferencia'];
             $evento->setTipoConferencia($tipoConf);
             
@@ -65,9 +65,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: ../Vista/gestionEventos.php?msg=creado");
         } else {
             header("Location: ../Vista/gestionEventos.php?error=fallo_creacion");
-        }   
+        }
     }
+}
+
+else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     
+    if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar' && isset($_GET['id'])) {
+        
+        $idEvento = (int)$_GET['id'];
+        
+        if ($eventoDAO->eliminar($idEvento)) {
+            header("Location: ../Vista/gestionEventos.php?msg=eliminado");
+            exit();
+        } else {
+            header("Location: ../Vista/gestionEventos.php?error=no_borrado");
+            exit();
+        }
+    }
 }
 
 ?>
