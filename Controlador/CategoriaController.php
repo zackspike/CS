@@ -8,7 +8,7 @@
 require_once '../Modelo/Categoria.php';
 require_once '../Modelo/CategoriaDAO.php';
 
-$daoSalon = new CategoriaDAO();
+$daoCategoria = new CategoriaDAO();
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_POST['accion'] == 'agregar') {
     
     $nombre = $_POST['nombre'];
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_POST['a
 
     $categoria = new Categoria(0, $nombre, $descripcion);
     
-    if ($daoSalon->agregar($categoria)) {
+    if ($daoCategoria->agregar($categoria)) {
         header("Location: ../Vista/categorias.php?msg=agregado");
     } else {
         header("Location: ../Vista/categorias.php?error=fallo_agregar");
@@ -32,7 +32,7 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_PO
 
     $categoriaActualizada = new Categoria($id, $nombre, $descripcion);
     
-    if ($daoSalon->actualizar($categoriaActualizada)) {
+    if ($daoCategoria->actualizar($categoriaActualizada)) {
         header("Location: ../Vista/categorias.php?msg=actualizado");
     } else {
         header("Location: ../Vista/categorias.php?error=fallo_actualizar");
@@ -44,7 +44,7 @@ else if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
     
     $idCategoria = $_GET['id'];
     
-    if ($daoSalon->eliminar($idCategoria)) {
+    if ($daoCategoria->eliminar($idCategoria)) {
         header("Location: ../Vista/categorias.php?msg=eliminado");
     } else {
         header("Location: ../Vista/categorias.php?error=no_borrado");

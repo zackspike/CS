@@ -7,9 +7,9 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
     exit();
 }
 $daoCategorias = new CategoriaDAO();
-$editorialEditar = null;
+$categoriaEditar = null;
 if (isset($_GET['accion']) && $_GET['accion'] == 'editar' && isset($_GET['id'])) {
-    $editorialEditar = $daoCategorias->obtenerPorId($_GET['id']);
+    $categoriaEditar = $daoCategorias->obtenerPorId($_GET['id']);
 }
 
 $lista = $daoCategorias->obtenerTodos();
@@ -41,7 +41,7 @@ $lista = $daoCategorias->obtenerTodos();
         <!-- Formulario de edición -->
         <div class="form-card">
             <h3 style="color:#005288; margin-bottom: 20px;">
-                <?php echo $editorialEditar ? '️ Editar Categoría' : 'Nueva Categoría'; ?>
+                <?php echo $categoriaEditar ? '️ Editar Categoría' : 'Nueva Categoría'; ?>
             </h3>
 
             <?php if(isset($_GET['message'])): ?>
@@ -55,26 +55,26 @@ $lista = $daoCategorias->obtenerTodos();
             <?php endif; ?>
             
             <form action="../Controlador/CategoriaController.php" method="POST">
-                <input type="hidden" name="accion" value="<?php echo $editorialEditar ? 'actualizar' : 'agregar'; ?>">
+                <input type="hidden" name="accion" value="<?php echo $categoriaEditar ? 'actualizar' : 'agregar'; ?>">
                 
                 <!-- Solo visible cuando se edita una categoría -->
-                <?php if ($editorialEditar): ?>
-                    <input type="hidden" name="idCategoria" value="<?php echo $editorialEditar->getIdCategoria(); ?>">
+                <?php if ($categoriaEditar): ?>
+                    <input type="hidden" name="idCategoria" value="<?php echo $categoriaEditar->getIdCategoria(); ?>">
                 <?php endif; ?>
                 
                 <label>Nombre de la Categoría:</label>
                 <!-- El value se rellena solo si estamos editando -->
                 <input type="text" name="nombre" required placeholder=" "
-                       value="<?php echo $editorialEditar ? $editorialEditar->getNombre() : ''; ?>">
+                       value="<?php echo $categoriaEditar ? $categoriaEditar->getNombre() : ''; ?>">
                 
                 <label>Descripción:</label>
-                <textarea name="descripcion" rows="4" placeholder="Descripción de la categoría"><?php echo $editorialEditar ? $editorialEditar->getDescripcion() : ''; ?></textarea>
+                <textarea name="descripcion" rows="4" placeholder="Descripción de la categoría"><?php echo $categoriaEditar ? $categoriaEditar->getDescripcion() : ''; ?></textarea>
                 
                 <button type="submit" class="btn" style="background-color:#005288; color:white; width:100%;">
-                    <?php echo $editorialEditar ? 'Guardar Cambios' : 'Crear Categoría'; ?>
+                    <?php echo $categoriaEditar ? 'Guardar Cambios' : 'Crear Categoría'; ?>
                 </button>
 
-                <?php if ($editorialEditar): ?>
+                <?php if ($categoriaEditar): ?>
                     <a href="categorias.php" style="display:block; text-align:center; margin-top:15px; color:#666; text-decoration:none;">
                         Cancelar Edición
                     </a>

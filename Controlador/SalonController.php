@@ -34,4 +34,16 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_PO
     }
 }
 
+//Eliminar salón AGREGAR
+else if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
+    
+    $idSalon = $_GET['id'];
+    
+    if ($daoSalon->eliminar($idSalon)) {
+        header("Location: ../Vista/salones.php?msg=eliminado");
+    } else {
+        header("Location: ../Vista/salones.php?error=no_borrado");
+    }
+}
+
 ?>
