@@ -24,13 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $salonSeleccionado = $salonDAO->obtenerPorId($idSalon);
         
         if ($salonSeleccionado) {
-            $capacidadMaximaReal = $salonSeleccionado->getMaxCapacidad();
+            $capacidadMaximaReal = (int)$salonSeleccionado->getMaxCapacidad();
+            $cupoSolicitado = (int)$numParticipantes;
             
-            if ($numParticipantes > $capacidadMaximaReal) {
+            if ($cupoSolicitado > $capacidadMaximaReal) {
                 $numParticipantes = $capacidadMaximaReal;
-                $huboAjuste = 1; 
+                $huboAjuste = 1;
             }
-            
         } else {
             header("Location: ../Vista/gestionEventos.php?error=salon_invalido");
             exit();
