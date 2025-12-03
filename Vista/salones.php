@@ -7,9 +7,9 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
     exit();
 }
 $daoSalones = new SalonDAO();
-$editorialEditar = null;
+$salonEditar = null;
 if (isset($_GET['accion']) && $_GET['accion'] == 'editar' && isset($_GET['id'])) {
-    $editorialEditar = $daoSalones->obtenerPorId($_GET['id']);
+    $salonEditar = $daoSalones->obtenerPorId($_GET['id']);
 }
 
 $lista = $daoSalones->obtenerTodos();
@@ -41,7 +41,7 @@ $lista = $daoSalones->obtenerTodos();
         <!-- Formulario de edición -->
         <div class="form-card">
             <h3 style="color:#005288; margin-bottom: 20px;">
-                <?php echo $editorialEditar ? '️ Editar Salón' : 'Nuevo Salón'; ?>
+                <?php echo $salonEditar ? '️ Editar Salón' : 'Nuevo Salón'; ?>
             </h3>
 
             <?php if(isset($_GET['message'])): ?>
@@ -55,27 +55,27 @@ $lista = $daoSalones->obtenerTodos();
             <?php endif; ?>
             
             <form action="../Controlador/SalonController.php" method="POST">
-                <input type="hidden" name="accion" value="<?php echo $editorialEditar ? 'actualizar' : 'agregar'; ?>">
+                <input type="hidden" name="accion" value="<?php echo $salonEditar ? 'actualizar' : 'agregar'; ?>">
                 
                 <!-- Solo visible cuando se edita un salón -->
-                <?php if ($editorialEditar): ?>
-                <input type="hidden" name="idSalon" value="<?php echo $editorialEditar->getIdSalon(); ?>">
+                <?php if ($salonEditar): ?>
+                <input type="hidden" name="idSalon" value="<?php echo $salonEditar->getIdSalon(); ?>">
                 <?php endif; ?>
                 
                 <label>Nombre del Salón:</label>
                 <!-- El value se rellena solo si estamos editando -->
                 <input type="text" name="nombreSalon" required placeholder=" "
-                       value="<?php echo $editorialEditar ? $editorialEditar->getNombreSalon() : ''; ?>">
+                       value="<?php echo $salonEditar ? $salonEditar->getNombreSalon() : ''; ?>">
                 
                 <label>Capacidad máxima:</label>
                 <input type="number" name="maxCapacidad" required min="1" placeholder="Solo ingrese el número"
-                       value="<?php echo $editorialEditar ? $editorialEditar->getMaxCapacidad() : ''; ?>">
+                       value="<?php echo $salonEditar ? $salonEditar->getMaxCapacidad() : ''; ?>">
                 
                 <button type="submit" class="btn" style="background-color:#005288; color:white; width:100%;">
-                    <?php echo $editorialEditar ? 'Guardar Cambios' : 'Crear Salón'; ?>
+                    <?php echo $salonEditar ? 'Guardar Cambios' : 'Crear Salón'; ?>
                 </button>
 
-                <?php if ($editorialEditar): ?>
+                <?php if ($salonEditar): ?>
                     <a href="salones.php" style="display:block; text-align:center; margin-top:15px; color:#666; text-decoration:none;">
                         Cancelar Edición
                     </a>
@@ -99,16 +99,16 @@ $lista = $daoSalones->obtenerTodos();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($lista as $editorial): ?>
+                        <?php foreach($lista as $salon): ?>
                         <tr>
-                            <td><strong><?php echo $editorial->getNombreSalon(); ?></strong></td>
-                            <td><?php echo $editorial->getMaxCapacidad(); ?></td>
+                            <td><strong><?php echo $salon->getNombreSalon(); ?></strong></td>
+                            <td><?php echo $salon->getMaxCapacidad(); ?></td>
                             <td>
-                                <a href="salones.php?accion=editar&id=<?php echo $editorial->getIdSalon(); ?>" class="btn-action btn-edit">
+                                <a href="salones.php?accion=editar&id=<?php echo $salon->getIdSalon(); ?>" class="btn-action btn-edit">
                                     Editar
                                 </a>
                                 
-                                <a href="../Controlador/SalonController.php?accion=eliminar&id=<?php echo $editorial->getIdSalon(); ?>" 
+                                <a href="../Controlador/SalonController.php?accion=eliminar&id=<?php echo $salon->getIdSalon(); ?>" 
                                    class="btn-action btn-delete" 
                                    onclick="return confirm('¿Eliminar este salón?');">
                                    Borrar
