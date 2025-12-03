@@ -15,7 +15,7 @@ $listaCategorias = $catDAO->obtenerTodos();
 $salonDAO = new SalonDAO();
 $listaSalones = $salonDAO->obtenerTodos();
 
-// Aquí se llama al DAO modificado que trae la capacidad y los inscritos
+
 $eventoDAO = new EventoDAO();
 $listaEventos = $eventoDAO->obtenerEventos();
 ?>
@@ -34,7 +34,6 @@ $listaEventos = $eventoDAO->obtenerEventos();
              <div class="nav-menu">
                 <a href="adminFeed.php" class="nav-link">Regresar</a>
                 <span class="usuario-info">Administrador: <?php echo $_SESSION['nombre']; ?></span>
-                
             </div>
         </div>
     </div>
@@ -45,23 +44,32 @@ $listaEventos = $eventoDAO->obtenerEventos();
         <?php if(isset($_GET['msg']) && $_GET['msg']=='creado'): ?>
             <div class="alert success">¡Evento creado exitosamente!</div>
         <?php endif; ?>
+        
         <?php if(isset($_GET['msg']) && $_GET['msg']=='eliminado'): ?>
             <div class="alert success">¡Evento eliminado correctamente!</div>
         <?php endif; ?>
-        
-        <?php if(isset($_GET['error']) && $_GET['error']=='capacidad_excedida'): ?>
-            <div class="alert error" style="background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;">
-                <strong>Error:</strong> El cupo ingresado excede la capacidad real del salón.
-                <?php if(isset($_GET['max'])) echo " (Capacidad máxima del salón: " . $_GET['max'] . ")"; ?>
+
+        <?php if(isset($_GET['ajuste']) && $_GET['ajuste']=='1'): ?>
+            <div class="alert warning" style="background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+                <strong>Aviso:</strong> El cupo solicitado excedía la capacidad del salón. 
+                Se ha ajustado automáticamente al límite máximo: 
+                <strong><?php echo isset($_GET['nuevo_cupo']) ? $_GET['nuevo_cupo'] : ''; ?> personas</strong>.
             </div>
         <?php endif; ?>
 
-        <?php if(isset($_GET['error']) && $_GET['error']!='capacidad_excedida'): ?>
-            <div class="alert error">Error en la operación.</div>
+        <?php if(isset($_GET['error'])): ?>
+            <?php if($_GET['error'] == 'salon_invalido'): ?>
+                <div class="alert error">Error: El salón seleccionado no es válido.</div>
+            <?php elseif($_GET['error'] == 'fallo_creacion'): ?>
+                <div class="alert error">Error al guardar el evento en la base de datos.</div>
+            <?php elseif($_GET['error'] != 'capacidad_excedida'): ?>
+                <div class="alert error">Ocurrió un error en la operación.</div>
+            <?php endif; ?>
         <?php endif; ?>
         
         <form action="../Controlador/EventoController.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="accion" value="crear_evento">
+            
             <div class="form-row">
                 <div class="form-col">
                     <label>Título del Evento:</label>
@@ -92,7 +100,6 @@ $listaEventos = $eventoDAO->obtenerEventos();
                         <?php endforeach; ?>
                     </select>
                 </div>
-                
             </div>
 
             <div class="form-row">
@@ -124,7 +131,7 @@ $listaEventos = $eventoDAO->obtenerEventos();
                 </div>
                 <div class="form-col">
                     <label>Cupo Máximo de Personas:</label>
-                    <input type="number" name="numParticipantes" required min="1" placeholder="Ingresa solo el número">
+                    <input type="number" name="numParticipantes" required min="1" placeholder="Ingresa el número deseado">
                 </div>
             </div>
 
@@ -179,7 +186,6 @@ $listaEventos = $eventoDAO->obtenerEventos();
             <button type="submit" class="btn" style="background-color: #005288; color: white; width: 100%; margin-top: 20px; padding: 15px; font-size: 1.1rem;">
                 Crear Evento
             </button>
-
         </form>
     </div>
 
@@ -207,6 +213,7 @@ $listaEventos = $eventoDAO->obtenerEventos();
                         </tr>
                     <?php else: ?>
                         <?php foreach($listaEventos as $ev): 
+                            
                             $capacidadTotal = isset($ev['maxCapacidad']) ? (int)$ev['maxCapacidad'] : 0;
                             $inscritos = isset($ev['totalInscritos']) ? (int)$ev['totalInscritos'] : 0;
                             
@@ -221,7 +228,7 @@ $listaEventos = $eventoDAO->obtenerEventos();
                                     $textoEstado = "¡LLENO!";
                                     $disponibles = 0; 
                                 } elseif ($disponibles < ($capacidadTotal * 0.2)) {
-                                    $colorEstado = "#ffc107";
+                                    $colorEstado = "#ffc107"; 
                                 }
                             }
                         ?>
@@ -269,18 +276,14 @@ $listaEventos = $eventoDAO->obtenerEventos();
                         </td>
 
                         <td style="text-align: center;">
-                            <a href="verInscritos.php?idEvento=<?php echo $ev['idEvento']; ?>"
-                                class="btn-constancia"
-                                >
-                                Inscritos
-                            </a>
+                            <a href="verInscritos.php?idEvento=<?php echo $ev['idEvento']; ?>" class="btn-constancia">Inscritos</a>
                             <a href="../Controlador/EventoController.php?accion=eliminar&id=<?php echo $ev['idEvento']; ?>" 
                                 class="btn-rojo"
                                 onclick="return confirm('¿Estás seguro de eliminar este evento?');">
                                 Borrar
                             </a>
-                            </td>
-                        </tr>
+                        </td>
+                    </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </tbody>
@@ -291,7 +294,6 @@ $listaEventos = $eventoDAO->obtenerEventos();
     <script>
         function mostrarCamposEspecificos() {
             var tipo = document.getElementById("selectorTipo").value;
-
             document.getElementById("campos-conferencia").style.display = "none";
             document.getElementById("campos-premiacion").style.display = "none";
             document.getElementById("campos-taller").style.display = "none";
@@ -305,6 +307,5 @@ $listaEventos = $eventoDAO->obtenerEventos();
             }
         }
     </script>
-
 </body>
 </html>
