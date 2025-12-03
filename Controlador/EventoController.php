@@ -18,19 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($accion == 'crear_evento') {
         
         $idSalon = (int)$_POST['idSalon'];
-        $numParticipantes = (int)$_POST['numParticipantes'];
-        $huboAjuste = 0; 
+        $numParticipantes = 0;  
         
         $salonSeleccionado = $salonDAO->obtenerPorId($idSalon);
         
         if ($salonSeleccionado) {
-            $capacidadMaximaReal = (int)$salonSeleccionado->getMaxCapacidad();
-            $cupoSolicitado = (int)$numParticipantes;
+            $numParticipantes = (int)$salonSeleccionado->getMaxCapacidad();
             
-            if ($cupoSolicitado > $capacidadMaximaReal) {
-                $numParticipantes = $capacidadMaximaReal;
-                $huboAjuste = 1;
-            }
         } else {
             header("Location: ../Vista/gestionEventos.php?error=salon_invalido");
             exit();
@@ -73,12 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         
         if ($eventoDAO->agregar($evento)) {
-            $params = "msg=creado";
-            if ($huboAjuste == 1) {
-                $params .= "&ajuste=1&nuevo_cupo=" . $numParticipantes;
-            }
-            header("Location: ../Vista/gestionEventos.php?" . $params);
-            
+            header("Location: ../Vista/gestionEventos.php?msg=creado");
         } else {
             header("Location: ../Vista/gestionEventos.php?error=fallo_creacion");
         }

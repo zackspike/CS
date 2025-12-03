@@ -15,7 +15,6 @@ $listaCategorias = $catDAO->obtenerTodos();
 $salonDAO = new SalonDAO();
 $listaSalones = $salonDAO->obtenerTodos();
 
-
 $eventoDAO = new EventoDAO();
 $listaEventos = $eventoDAO->obtenerEventos();
 ?>
@@ -49,22 +48,8 @@ $listaEventos = $eventoDAO->obtenerEventos();
             <div class="alert success">¡Evento eliminado correctamente!</div>
         <?php endif; ?>
 
-        <?php if(isset($_GET['ajuste']) && $_GET['ajuste']=='1'): ?>
-            <div class="alert warning" style="background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
-                <strong>Aviso:</strong> El cupo solicitado excedía la capacidad del salón. 
-                Se ha ajustado automáticamente al límite máximo: 
-                <strong><?php echo isset($_GET['nuevo_cupo']) ? $_GET['nuevo_cupo'] : ''; ?> personas</strong>.
-            </div>
-        <?php endif; ?>
-
         <?php if(isset($_GET['error'])): ?>
-            <?php if($_GET['error'] == 'salon_invalido'): ?>
-                <div class="alert error">Error: El salón seleccionado no es válido.</div>
-            <?php elseif($_GET['error'] == 'fallo_creacion'): ?>
-                <div class="alert error">Error al guardar el evento en la base de datos.</div>
-            <?php elseif($_GET['error'] != 'capacidad_excedida'): ?>
-                <div class="alert error">Ocurrió un error en la operación.</div>
-            <?php endif; ?>
+            <div class="alert error">Ocurrió un error en la operación.</div>
         <?php endif; ?>
         
         <form action="../Controlador/EventoController.php" method="POST" enctype="multipart/form-data">
@@ -128,11 +113,12 @@ $listaEventos = $eventoDAO->obtenerEventos();
                             </option>
                         <?php endforeach; ?>
                     </select>
+                    <small style="color:#666; font-size:0.8rem; margin-top:5px; display:block;">
+                        * El cupo del evento se asignará automáticamente según la capacidad del salón.
+                    </small>
                 </div>
-            </div>
-
-            <div class="form-row">
-                 <div class="form-col">
+                
+                <div class="form-col">
                     <label>Tipo de Cupo:</label>
                     <select name="tipoCupo">
                         <option value="Limitado">Limitado (Requiere registro)</option>
@@ -209,18 +195,17 @@ $listaEventos = $eventoDAO->obtenerEventos();
                         </tr>
                     <?php else: ?>
                         <?php foreach($listaEventos as $ev): 
-                            
                             $capacidadTotal = isset($ev['maxCapacidad']) ? (int)$ev['maxCapacidad'] : 0;
                             $inscritos = isset($ev['totalInscritos']) ? (int)$ev['totalInscritos'] : 0;
                             
                             $disponibles = $capacidadTotal - $inscritos;
                             
-                            $colorEstado = "#28a745";
+                            $colorEstado = "#28a745"; 
                             $textoEstado = $disponibles . " disponibles";
 
                             if ($capacidadTotal > 0) {
                                 if ($disponibles <= 0) {
-                                    $colorEstado = "#dc3545";
+                                    $colorEstado = "#dc3545"; 
                                     $textoEstado = "¡LLENO!";
                                     $disponibles = 0; 
                                 } elseif ($disponibles < ($capacidadTotal * 0.2)) {
