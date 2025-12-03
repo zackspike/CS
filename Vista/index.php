@@ -11,13 +11,13 @@ $tituloSeccion = "";
 
 if ($seccion == 'editoriales') {
     $editorialDAO = new EditorialDAO();
-    $datosParaMostrar = $editorialDAO->obtenerEditoriales(); 
+    $datosParaMostrar = $editorialDAO->obtenerTodos(); 
     $tituloSeccion = "Editoriales Participantes";
 
 } else {
     //Obtener los eventos y filtrarlos por tipo
     $eventoDAO = new EventoDAO();
-    $todosLosEventos = $eventoDAO->obtenerEventos();
+    $todosLosEventos = $eventoDAO->obtenerTodos();
     $tituloSeccion = "Próximos Eventos";
     if ($filtro == 'todos') {
         $datosParaMostrar = $todosLosEventos;

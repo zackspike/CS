@@ -10,11 +10,10 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
 }
 
 $catDAO = new CategoriaDAO();
-$listaCategorias = $catDAO->obtenerCategorias();
+$listaCategorias = $catDAO->obtenerTodos();
 
 $salonDAO = new SalonDAO();
-$listaSalones = $salonDAO->obtenerSalones()
-        ;
+$listaSalones = $salonDAO->obtenerTodos();
 $eventoDAO = new EventoDAO();
 $listaEventos = $eventoDAO->obtenerEventos();
 ?>

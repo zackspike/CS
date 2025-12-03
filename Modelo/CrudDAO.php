@@ -18,7 +18,6 @@ abstract class CrudDAO extends DAO {
     abstract public function agregar($entidad);
     abstract public function actualizar($entidad);
 
-    // Reemplaza a obtenerEditoriales(), obtenerSalones(), etc.
     public function obtenerTodos() {
         $sql = "SELECT * FROM " . $this->nombreTabla;
         $result = $this->conexion->query($sql);
@@ -33,7 +32,6 @@ abstract class CrudDAO extends DAO {
         return $lista;
     }
 
-    // Reemplaza a todos los obtenerPorId específicos
     public function obtenerPorId($id) {
         $sql = "SELECT * FROM " . $this->nombreTabla . " WHERE " . $this->nombreId . " = ?";
         
@@ -52,7 +50,6 @@ abstract class CrudDAO extends DAO {
         return null;
     }
 
-    // Reemplaza a todos los eliminar específicos
     public function eliminar($id) {
         $sql = "DELETE FROM " . $this->nombreTabla . " WHERE " . $this->nombreId . " = ?";
         
