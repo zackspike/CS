@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-use Modelo\CategoriaDAO;
+require_once '../Modelo/CategoriaDAO.php'; 
 
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
     header("Location: login.php");
