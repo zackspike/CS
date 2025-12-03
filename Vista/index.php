@@ -17,7 +17,7 @@ if ($seccion == 'editoriales') {
 } else {
     //Obtener los eventos y filtrarlos por tipo
     $eventoDAO = new EventoDAO();
-    $todosLosEventos = $eventoDAO->obtenerTodos();
+    $todosLosEventos = $eventoDAO->obtenerEventos();
     $tituloSeccion = "Próximos Eventos";
     if ($filtro == 'todos') {
         $datosParaMostrar = $todosLosEventos;
