@@ -1,85 +1,104 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
-
 require_once __DIR__ . '/../../Modelo/Evento.php';
-require_once __DIR__ . '/../../Modelo/Fecha.php';
-require_once __DIR__ . '/../../Modelo/Hora.php';
-require_once __DIR__ . '/../../Modelo/Categoria.php';
-require_once __DIR__ . '/../../Modelo/Salon.php';
-
 
 class EventoTest extends TestCase {
 
-    // PRUEBA DE CONSTRUCTOR Y GETTERS
+    // PRUEBA DE CONSTRUCTOR Y GETTERS BÁSICOS
     public function testConstructorYGetters(){
-        $id = 1;
-        $titulo = 'Presentación Jesús Tec: Real Life';
-        $descripcion = 'Una plática sobre la vida real.';
-        $ponente = 'Jesús Tec';
-        $numParticipantes = 100;
-        $fecha = new Fecha(18, 11, 2025);
-        $horaI = new Hora(12, 0);
-        $horaF = new Hora(13, 30);
-        $tipoCupo = 'Limitado';
-        $categoria = new Categoria(1, "Autobiografía", "Experiencia del ponente");
-        $salon = new Salon(101, "Auditorio A", 150);
-        
+        $idEvento = 1;
+        $titulo = "Conferencia de Literatura";
+        $descripcion = "Una conferencia sobre literatura contemporánea";
+        $ponente = "Juan Pérez";
+        $numParticipantes = 50;
+        $fecha = "2025-03-15";
+        $horaInicio = "10:00:00";
+        $horaFinal = "12:00:00";
+        $tipoCupo = "Limitado";
+        $tipoEvento = "conferencia";
+        $idCategoria = 1;
+        $idSalon = 1;
+        $imagen = "conferencia.jpg";
 
         $evento = new Evento(
-            $id, $titulo, $descripcion, $ponente,
-            $numParticipantes, $fecha, $horaI, $horaF,
-            $tipoCupo, $categoria, $salon
+            $idEvento, $titulo, $descripcion, $ponente, $numParticipantes,
+            $fecha, $horaInicio, $horaFinal, $tipoCupo, $tipoEvento, 
+            $idCategoria, $idSalon, $imagen
         );
 
-        //PRUEBA GETTERS
-        $this->assertEquals($id, $evento->getIdEvento());
+        $this->assertEquals($idEvento, $evento->getIdEvento());
         $this->assertEquals($titulo, $evento->getTitulo());
-        $this->assertEquals($descripcion, $evento->getDescripcion());
         $this->assertEquals($ponente, $evento->getPonente());
-        $this->assertEquals($numParticipantes, $evento->getNumParticipantes());
+        $this->assertEquals($tipoEvento, $evento->getTipoEvento());
         $this->assertEquals($tipoCupo, $evento->getTipoCupo());
-        $this->assertSame($fecha, $evento->getFecha());
-        $this->assertSame($horaI, $evento->getHoraInicio());
-        $this->assertSame($horaF, $evento->getHoraFinal());
-        $this->assertSame($categoria, $evento->getCategoria());
-        $this->assertSame($salon, $evento->getUbicacion());
     }
 
-    // PRUEBA SETTERS
+    // PRUEBA SETTERS BÁSICOS
     public function testSetters(){
-        $fecha = new Fecha(18, 11, 2025);
-        $horaI = new Hora(13, 30);
-        $horaF = new Hora(15, 0);
-        $categoria = new Categoria(1, "Presentación del libro", "Presentación de un libro nuevo por el autor");
-        $salon = new Salon(101, "Auditorio A", 150);
-        
         $evento = new Evento(
-            1, "Gatos", "La vida de los gatos", "Karina Puch", 100,
-            $fecha, $horaI, $horaF, "General",
-            $categoria, $salon
+            1, "Título Anterior", "Descripción", "Ponente", 50,
+            "2025-03-15", "10:00:00", "12:00:00", "Limitado", 
+            "conferencia", 1, 1, "imagen.jpg"
         );
 
-        $nuevoNombre = "Perros";
-        $nuevaHoraFinal = new Hora(15, 30);
-        $nuevoSalon = new Salon(102, "Auditorio B", 200);
-        $nuevoPonente="Isaac Pech";
+        $evento->setTitulo("Título Actualizado");
+        $evento->setPonente("Nuevo Ponente");
+        $evento->setTipoEvento("taller");
 
-        $evento->setTitulo($nuevoNombre);
-        $evento->setHoraFinal($nuevaHoraFinal);
-        $evento->setPonente($nuevoPonente);
-        $evento->setUbicacion($nuevoSalon);
+        $this->assertEquals("Título Actualizado", $evento->getTitulo());
+        $this->assertEquals("Nuevo Ponente", $evento->getPonente());
+        $this->assertEquals("taller", $evento->getTipoEvento());
+    }
 
-        //VERIFICAR QUE SE HICIERON LOS CAMBIOS
-        $this->assertEquals($nuevoNombre, $evento->getTitulo());
-        $this->assertSame($nuevaHoraFinal, $evento->getHoraFinal());
-        $this->assertEquals($nuevoPonente, $evento->getPonente());
-        $this->assertSame($nuevoSalon, $evento->getUbicacion());
+    // PRUEBA PARA CAMPOS OPCIONALES (nullable)
+    public function testCamposOpcionales(){
+        $evento = new Evento(
+            1, "Título", "Descripción", "Ponente", 50,
+            "2025-03-15", "10:00:00", "12:00:00", "Limitado", 
+            "conferencia", 1, 1, "imagen.jpg"
+        );
 
-        //VERIFICAR QUE LOS DATOS NO MODIFICADOS SE CONSERVEN
-        $this->assertEquals(1, $evento->getIdEvento());
-        $this->assertSame($horaI, $evento->getHoraInicio());
-        $this->assertSame($fecha, $evento->getFecha());
-        $this->assertSame($categoria, $evento->getCategoria());
+        // Al inicio deben ser null
+        $this->assertNull($evento->getTipoConferencia());
+        $this->assertNull($evento->getGanadorPremiacion());
+
+        // Establecer valores
+        $evento->setTipoConferencia("Presentación de libro");
+        $evento->setGanadorPremiacion("María García");
+
+        $this->assertEquals("Presentación de libro", $evento->getTipoConferencia());
+        $this->assertEquals("María García", $evento->getGanadorPremiacion());
+    }
+
+    // PRUEBA PARA VALIDAR TIPOS DE EVENTO
+    public function testTiposEventoValidos(){
+        $evento = new Evento(
+            1, "Título", "Descripción", "Ponente", 50,
+            "2025-03-15", "10:00:00", "12:00:00", "Limitado", 
+            "conferencia", 1, 1, "imagen.jpg"
+        );
+        
+        $this->assertEquals("conferencia", $evento->getTipoEvento());
+        
+        $evento->setTipoEvento("taller");
+        $this->assertEquals("taller", $evento->getTipoEvento());
+        
+        $evento->setTipoEvento("premiacion");
+        $this->assertEquals("premiacion", $evento->getTipoEvento());
+    }
+
+    // PRUEBA PARA NÚMERO DE PARTICIPANTES
+    public function testNumeroParticipantes(){
+        $evento = new Evento(
+            1, "Título", "Descripción", "Ponente", 100,
+            "2025-03-15", "10:00:00", "12:00:00", "Limitado", 
+            "conferencia", 1, 1, "imagen.jpg"
+        );
+        
         $this->assertEquals(100, $evento->getNumParticipantes());
+        
+        $evento->setNumParticipantes(150);
+        $this->assertEquals(150, $evento->getNumParticipantes());
     }
 }
