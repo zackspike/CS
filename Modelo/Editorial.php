@@ -50,5 +50,4 @@ class Editorial  {
         $this->ubicacionPuestoEditorial = $ubicacionPuestoEditorial;
     }
 
-
 }

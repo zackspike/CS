@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/conexionBD.php';
+require_once 'conexionBD.php';
 
 class DAO {
     protected $conexion;
@@ -9,4 +9,3 @@ class DAO {
         $this->conexion = $bd->conectar();
     }
 }
-?>

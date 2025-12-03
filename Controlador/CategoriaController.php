@@ -21,10 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_POST['a
     } else {
         header("Location: ../Vista/categorias.php?error=fallo_agregar");
     }
-} 
+}
 
 //Modificar categoría
-else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_POST['accion'] == 'actualizar') {
+elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_POST['accion'] == 'actualizar') {
     
     $id = $_POST['idCategoria'];
     $nombre = $_POST['nombre'];
@@ -40,7 +40,7 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_PO
 }
 
 //Eliminar categoría
-else if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
+elseif (isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
     
     $idCategoria = $_GET['id'];
     
@@ -50,5 +50,3 @@ else if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
         header("Location: ../Vista/categorias.php?error=no_borrado");
     }
 }
-
-?>

@@ -2,20 +2,19 @@
 require_once 'DAO.php';
 require_once 'Evento.php';
 
-
 class EventoDAO extends DAO {
 
     public function agregar(Evento $evento) {
         try {
             $this->conexion->begin_transaction();
 
-            $sql = "INSERT INTO Eventos (titulo, descripcion, ponente, numParticipantes, fecha, horaInicio, horaFinal, tipoCupo, tipoEvento, idCategoria, idSalon, imagen) 
+            $sql = "INSERT INTO Eventos (titulo, descripcion, ponente, numParticipantes, fecha, horaInicio, horaFinal, tipoCupo, tipoEvento, idCategoria, idSalon, imagen)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             $statement = $this->conexion->prepare($sql);
             
             $titulo = $evento->getTitulo(); $descripcion = $evento->getDescripcion(); $ponente = $evento->getPonente();
-            $numParitcipantes = $evento->getNumParticipantes(); $fecha = $evento->getFecha(); 
+            $numParitcipantes = $evento->getNumParticipantes(); $fecha = $evento->getFecha();
             $horaInicial = $evento->getHoraInicio(); $horaFin = $evento->getHoraFinal();
             $cupo = $evento->getTipoCupo(); $tipoEvento = $evento->getTipoEvento();
             $idCat = $evento->getIdCategoria(); $idSalon = $evento->getIdSalon(); $imagen = $evento->getImagen();
@@ -34,7 +33,7 @@ class EventoDAO extends DAO {
                 $statementHijo = $this->conexion->prepare($sqlHijo);
                 $tipoConf = $evento->getTipoConferencia();
                 $statementHijo->bind_param("is", $idEventoNuevo, $tipoConf);
-                if (!$statementHijo->execute()){ throw new Exception("Error al insertar Conferencia");} 
+                if (!$statementHijo->execute()){ throw new Exception("Error al insertar Conferencia");}
                 
             } elseif ($tipoEvento == 'premiacion') {
                 $sqlHijo = "INSERT INTO Premiaciones (idEvento, ganadorPremiacion) VALUES (?, ?)";
@@ -103,13 +102,13 @@ class EventoDAO extends DAO {
     // Listar eventos con sus nombres de Categoria y su Salon correspondientes
     public function obtenerEventos() {
         
-        $sql = "SELECT evento.*, 
-                    categoria.nombre as nombreCategoria, 
-                    salon.nombreSalon, 
-                    salon.maxCapacidad, 
+        $sql = "SELECT evento.*,
+                    categoria.nombre as nombreCategoria,
+                    salon.nombreSalon,
+                    salon.maxCapacidad,
                     (SELECT COUNT(*) FROM Registros WHERE idEvento = evento.idEvento) as totalInscritos
-                FROM Eventos evento 
-                JOIN Categorias categoria ON evento.idCategoria = categoria.idCategoria 
+                FROM Eventos evento
+                JOIN Categorias categoria ON evento.idCategoria = categoria.idCategoria
                 JOIN Salones salon ON evento.idSalon = salon.idSalon
                 ORDER BY evento.fecha DESC, evento.horaInicio ASC";
         
@@ -122,10 +121,8 @@ class EventoDAO extends DAO {
 
         $lista = [];
         while ($fila = $result->fetch_assoc()) {
-            $lista[] = $fila; 
+            $lista[] = $fila;
         }
         return $lista;
     }
 }
-?>
-

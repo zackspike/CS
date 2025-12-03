@@ -12,8 +12,8 @@ class EditorialDAO extends CrudDAO {
 
     protected function mapear($fila) {
         return new Editorial(
-            (int)$fila['idEditorial'], 
-            $fila['nombreEditorial'], 
+            (int)$fila['idEditorial'],
+            $fila['nombreEditorial'],
             $fila['numPuestoEditorial'],
             $fila['ubicacionPuestoEditorial']
         );
@@ -53,4 +53,3 @@ class EditorialDAO extends CrudDAO {
     }
 
 }
-?>

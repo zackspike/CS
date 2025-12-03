@@ -15,7 +15,7 @@ $inscritos = $registroDAO->obtenerPorEvento($idEvento);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <title>Lista de Asistencia</title>
     <meta charset="UTF-8">
@@ -26,7 +26,7 @@ $inscritos = $registroDAO->obtenerPorEvento($idEvento);
 
     <div class="header">
         <div class="header-container">
-             <div class="logo-container"><img src="../Assets/logoFILEY.png" class="logo"></div>
+             <div class="logo-container"><img src="../Assets/logoFILEY.png" class="logo" alt="Logo"></div>
              <div class="nav-menu">
                 <a href="gestionEventos.php" class="nav-link">Volver a Eventos</a>
                 <span class="usuario-info">Administrador: <?php echo $_SESSION['nombre']; ?></span>
@@ -68,7 +68,7 @@ $inscritos = $registroDAO->obtenerPorEvento($idEvento);
                             </td>
                             <td>
                                 <?php if ($p['asistio'] == 0): ?>
-                                    <a href="../Controlador/RegistroController.php?accion=validar&idRegistro=<?php echo $p['idRegistro']; ?>&idEvento=<?php echo $idEvento; ?>" 
+                                    <a href="../Controlador/RegistroController.php?accion=validar&idRegistro=<?php echo $p['idRegistro']; ?>&idEvento=<?php echo $idEvento; ?>"
                                        class="btn-validar">
                                        Validar
                                     </a>

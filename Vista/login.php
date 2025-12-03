@@ -8,8 +8,8 @@ if (isset($_GET['mensaje'])) {
     if ($_GET['mensaje'] == 'registrado') $mensaje = "El registro fue exitoso, por favor inicia sesión.";
 }
 ?>
-
-<html>
+<!DOCTYPE>
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <title>Acceso FILEY</title>

@@ -14,8 +14,8 @@ if (isset($_GET['accion']) && $_GET['accion'] == 'editar' && isset($_GET['id']))
 
 $lista = $daoCategorias->obtenerTodos();
 ?>
-
-<html>
+<!DOCTYPE html>
+<html lang="es">
     <head>
         <title>Gestionar Categorías</title>
         <meta charset="UTF-8">
@@ -46,7 +46,7 @@ $lista = $daoCategorias->obtenerTodos();
 
             <?php if(isset($_GET['message'])): ?>
                 <div class="alert success">
-                    <?php 
+                    <?php
                         if($_GET['message']=='agregado') echo "¡Categoría agregada con éxito!";
                         if($_GET['message']=='actualizado') echo "¡Cambios guardados correctamente!";
                         if($_GET['message']=='eliminado') echo "Categoría eliminada.";
@@ -107,8 +107,8 @@ $lista = $daoCategorias->obtenerTodos();
                                     Editar
                                 </a>
                                 
-                                <a href="../Controlador/CategoriaController.php?accion=eliminar&id=<?php echo $categoria->getIdCategoria(); ?>" 
-                                   class="btn-action btn-delete" 
+                                <a href="../Controlador/CategoriaController.php?accion=eliminar&id=<?php echo $categoria->getIdCategoria(); ?>"
+                                   class="btn-action btn-delete"
                                    onclick="return confirm('¿Eliminar esta categoría?');">
                                    Borrar
                                 </a>

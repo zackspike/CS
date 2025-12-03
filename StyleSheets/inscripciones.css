@@ -9,12 +9,12 @@ th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
 th { background-color: #f8f9fa; color: #005288; }
         
 .btn-validar { 
-background-color: #28a745; color: white; padding: 6px 12px; 
+background-color: #28a745; color: rgb(0, 0, 0); padding: 6px 12px; 
 text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 0.9rem; 
 }
 
 .btn-validar:hover { background-color: #218838; }
         
-.badge-si { color: green; font-weight: bold; background: #d4edda; padding: 4px 8px; border-radius: 10px;}
+.badge-si { color: #007000; font-weight: bold; background: #d4edd6; padding: 4px 8px; border-radius: 10px;}
 .badge-no { color: #856404; background: #fff3cd; padding: 4px 8px; border-radius: 10px;}
 

@@ -1,7 +1,6 @@
 <?php
-
 require_once 'DAO.php';
-require_once 'Usuario.php'; 
+require_once 'Usuario.php';
 
 class UsuarioDAO extends DAO {
 
@@ -15,7 +14,7 @@ class UsuarioDAO extends DAO {
 
         $nombre = $usuario->getNombre();
         $email = $usuario->getEmail();
-        $password = $usuario->getPassword(); 
+        $password = $usuario->getPassword();
 
         $statement->bind_param("sss", $nombre, $email, $password);
 
@@ -24,7 +23,7 @@ class UsuarioDAO extends DAO {
             return true;
         } else {
             $statement->close();
-            return false; 
+            return false;
         }
     }
 
@@ -37,11 +36,10 @@ class UsuarioDAO extends DAO {
         
         $resultado = $statement->get_result();
 
-        if (($fila = $resultado->fetch_assoc())) {
-            if (password_verify($password, $fila['password'])) {
-                unset($fila['password']); 
-                return $fila;
-            }
+        if (($fila = $resultado->fetch_assoc()) &&
+            password_verify($password, $fila['password'])) {
+            unset($fila['password']);
+            return $fila;
         }
         
         return false;

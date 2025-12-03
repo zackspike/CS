@@ -10,7 +10,7 @@ class RegistroDAO extends DAO {
         $statement->bind_param("ii", $idUsuario, $idEvento);
         $statement->execute();
         $statement->store_result();
-        return $statement->num_rows > 0; 
+        return $statement->num_rows > 0;
     }
 
     public function inscribir($idUsuario, $idEvento) {
@@ -22,11 +22,11 @@ class RegistroDAO extends DAO {
     }
 
     public function obtenerPorUsuario($idUsuario) {
-        $sql = "SELECT registro.*, evento.titulo, evento.fecha, evento.horaInicio, evento.tipoEvento, salon.nombreSalon 
-                FROM Registros registro 
+        $sql = "SELECT registro.*, evento.titulo, evento.fecha, evento.horaInicio, evento.tipoEvento, salon.nombreSalon
+                FROM Registros registro
                 JOIN Eventos evento ON registro.idEvento = evento.idEvento
                 JOIN Salones salon ON evento.idSalon = salon.idSalon
-                WHERE registro.idUsuario = ? 
+                WHERE registro.idUsuario = ?
                 ORDER BY registro.fechaRegistro DESC";
         
         $statement = $this->conexion->prepare($sql);
@@ -37,10 +37,10 @@ class RegistroDAO extends DAO {
         $lista = [];
         while ($fila = $result->fetch_assoc()) {
             $registro = new Registro(
-                $fila['idRegistro'], 
-                $fila['fechaRegistro'], 
-                $fila['asistio'], 
-                $fila['idUsuario'], 
+                $fila['idRegistro'],
+                $fila['fechaRegistro'],
+                $fila['asistio'],
+                $fila['idUsuario'],
                 $fila['idEvento']
             );
             $registro->setDetallesEvento($fila['titulo'], $fila['fecha'],$fila['horaInicio'], $fila['nombreSalon'], $fila['tipoEvento']);
@@ -50,10 +50,10 @@ class RegistroDAO extends DAO {
     }
     
     public function obtenerPorEvento($idEvento) {
-        $sql = "SELECT registro.idRegistro, registro.fechaRegistro, registro.asistio, usuario.nombre, usuario.email 
-                FROM Registros registro 
-                JOIN Usuarios usuario ON registro.idUsuario = usuario.idUsuario 
-                WHERE registro.idEvento = ? 
+        $sql = "SELECT registro.idRegistro, registro.fechaRegistro, registro.asistio, usuario.nombre, usuario.email
+                FROM Registros registro
+                JOIN Usuarios usuario ON registro.idUsuario = usuario.idUsuario
+                WHERE registro.idEvento = ?
                 ORDER BY usuario.nombre ASC";
         
         $statement = $this->conexion->prepare($sql);
@@ -63,7 +63,7 @@ class RegistroDAO extends DAO {
         
         $lista = [];
         while ($fila = $result->fetch_assoc()) {
-            $lista[] = $fila; 
+            $lista[] = $fila;
         }
         return $lista;
     }
@@ -83,7 +83,7 @@ class RegistroDAO extends DAO {
     }
     
     public function obtenerPorId($idRegistro) {
-        $sql = "SELECT registro.*, usuario.nombre as nombreUsuario, evento.titulo, evento.fecha, evento.tipoEvento 
+        $sql = "SELECT registro.*, usuario.nombre as nombreUsuario, evento.titulo, evento.fecha, evento.tipoEvento
                 FROM Registros registro
                 JOIN Usuarios usuario ON registro.idUsuario = usuario.idUsuario
                 JOIN Eventos evento ON registro.idEvento = evento.idEvento
@@ -93,8 +93,8 @@ class RegistroDAO extends DAO {
         $statement->execute();
         $result = $statement->get_result();
         
-        if (($fila = $result->fetch_assoc())) {
-            return $fila; 
+        if ($fila = $result->fetch_assoc()) {
+            return $fila;
         }
         return null;
     }

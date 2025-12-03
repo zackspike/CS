@@ -125,7 +125,7 @@ class Evento {
     }
 
     public function setIdCategoria(int $idCategoria): void {
-        $this->idCategoria = $this->idCategoria;
+        $this->idCategoria = $idCategoria;
     }
 
     public function setIdSalon(int $idSalon): void {

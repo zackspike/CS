@@ -14,8 +14,8 @@ if (isset($_GET['accion']) && $_GET['accion'] == 'editar' && isset($_GET['id']))
 
 $lista = $daoEditoriales->obtenerTodos();
 ?>
-
-<html>
+<!DOCTYPE html>
+<html lang="es">
     <head>
         <title>Gestionar Editoriales</title>
         <meta charset="UTF-8">
@@ -46,7 +46,7 @@ $lista = $daoEditoriales->obtenerTodos();
 
             <?php if(isset($_GET['message'])): ?>
                 <div class="alert success">
-                    <?php 
+                    <?php
                         if($_GET['message']=='agregado') echo "¡Editorial agregada con éxito!";
                         if($_GET['message']=='actualizado') echo "¡Cambios guardados correctamente!";
                         if($_GET['message']=='eliminado') echo "Editorial eliminada.";
@@ -68,7 +68,7 @@ $lista = $daoEditoriales->obtenerTodos();
                        value="<?php echo $editorialEditar ? $editorialEditar->getNombreEditorial() : ''; ?>">
                 
                 <label>Número del puesto:</label>
-                <input type="number" name="numPuestoEditorial" required min="1" 
+                <input type="number" name="numPuestoEditorial" required min="1"
                        value="<?php echo $editorialEditar ? $editorialEditar->getNumPuestoEditorial() : ''; ?>">
                 
                 <label>Ubicación del puesto:</label>
@@ -114,8 +114,8 @@ $lista = $daoEditoriales->obtenerTodos();
                                     Editar
                                 </a>
                                 
-                                <a href="../Controlador/EditorialController.php?accion=eliminar&id=<?php echo $editorial->getIdEditorial(); ?>" 
-                                   class="btn-action btn-delete" 
+                                <a href="../Controlador/EditorialController.php?accion=eliminar&id=<?php echo $editorial->getIdEditorial(); ?>"
+                                   class="btn-action btn-delete"
                                    onclick="return confirm('¿Eliminar esta editorial?');">
                                    Borrar
                                 </a>

@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_POST['a
     } else {
         header("Location: ../Vista/salones.php?error=fallo_agregar");
     }
-} 
+}
 //Modificar salón
-else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_POST['accion'] == 'actualizar') {
+elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_POST['accion'] == 'actualizar') {
     
     $id = $_POST['idSalon'];
     $nombreSalon = $_POST['nombreSalon'];
@@ -35,7 +35,7 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_PO
 }
 
 //Eliminar salón AGREGAR
-else if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
+elseif (isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
     
     $idSalon = $_GET['id'];
     
@@ -45,5 +45,3 @@ else if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
         header("Location: ../Vista/salones.php?error=no_borrado");
     }
 }
-
-?>

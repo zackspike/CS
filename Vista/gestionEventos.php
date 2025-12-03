@@ -18,8 +18,8 @@ $listaSalones = $salonDAO->obtenerTodos();
 $eventoDAO = new EventoDAO();
 $listaEventos = $eventoDAO->obtenerEventos();
 ?>
-
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <title>Gestionar Eventos</title>
     <meta charset="UTF-8">
@@ -29,7 +29,7 @@ $listaEventos = $eventoDAO->obtenerEventos();
 <body>
     <div class="header">
         <div class="header-container">
-             <div class="logo-container"><img src="../Assets/logoFILEY.png" class="logo"></div>
+             <div class="logo-container"><img src="../Assets/logoFILEY.png" class="logo" alt="logo"></div>
              <div class="nav-menu">
                 <a href="adminFeed.php" class="nav-link">Regresar</a>
                 <span class="usuario-info">Administrador: <?php echo $_SESSION['nombre']; ?></span>
@@ -194,29 +194,29 @@ $listaEventos = $eventoDAO->obtenerEventos();
                             </td>
                         </tr>
                     <?php else: ?>
-                        <?php foreach($listaEventos as $ev): 
+                        <?php foreach($listaEventos as $ev):
                             $capacidadTotal = isset($ev['maxCapacidad']) ? (int)$ev['maxCapacidad'] : 0;
                             $inscritos = isset($ev['totalInscritos']) ? (int)$ev['totalInscritos'] : 0;
                             
                             $disponibles = $capacidadTotal - $inscritos;
                             
-                            $colorEstado = "#28a745"; 
+                            $colorEstado = "#28a745";
                             $textoEstado = $disponibles . " disponibles";
 
                             if ($capacidadTotal > 0) {
                                 if ($disponibles <= 0) {
-                                    $colorEstado = "#dc3545"; 
+                                    $colorEstado = "#dc3545";
                                     $textoEstado = "¡LLENO!";
-                                    $disponibles = 0; 
+                                    $disponibles = 0;
                                 } elseif ($disponibles < ($capacidadTotal * 0.2)) {
-                                    $colorEstado = "#ffc107"; 
+                                    $colorEstado = "#ffc107";
                                 }
                             }
                         ?>
                     <tr>
                         <td>
                             <?php if(!empty($ev['imagen'])): ?>
-                            <img src="../Assets/<?php echo $ev['imagen']; ?>" class="img-mini">
+                            <img src="../Assets/<?php echo $ev['imagen']; ?>" class="img-mini" alt="img del evento">
                             <?php else: ?>
                                 <span style="color:#ccc; font-size:0.8rem;">Sin img</span>
                             <?php endif; ?>
@@ -248,8 +248,8 @@ $listaEventos = $eventoDAO->obtenerEventos();
                                 </span>
                             </div>
                             <div style="background:#eee; height:6px; width:100%; border-radius:3px; margin-top:5px; overflow:hidden;">
-                                <?php 
-                                        $porcentaje = ($capacidadTotal > 0) ? ($inscritos / $capacidadTotal) * 100 : 0; 
+                                <?php
+                                        $porcentaje = ($capacidadTotal > 0) ? ($inscritos / $capacidadTotal) * 100 : 0;
                                         if($porcentaje > 100) $porcentaje = 100;
                                 ?>
                                 <div style="background:<?php echo $colorEstado; ?>; height:100%; width:<?php echo $porcentaje; ?>%;"></div>
@@ -258,7 +258,7 @@ $listaEventos = $eventoDAO->obtenerEventos();
 
                         <td style="text-align: center;">
                             <a href="verInscritos.php?idEvento=<?php echo $ev['idEvento']; ?>" class="btn-constancia">Inscritos</a>
-                            <a href="../Controlador/EventoController.php?accion=eliminar&id=<?php echo $ev['idEvento']; ?>" 
+                            <a href="../Controlador/EventoController.php?accion=eliminar&id=<?php echo $ev['idEvento']; ?>"
                                 class="btn-rojo"
                                 onclick="return confirm('¿Estás seguro de eliminar este evento?');">
                                 Borrar

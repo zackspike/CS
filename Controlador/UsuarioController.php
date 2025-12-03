@@ -4,7 +4,7 @@ session_start();
 require_once '../Modelo/Usuario.php';
 require_once '../Modelo/UsuarioDAO.php';
 
-//se valida si hubo alguna acción 
+//se valida si hubo alguna acción
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $usuarioDAO = new UsuarioDAO();
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($usuarioEncontrado) {
                 $_SESSION['idUsuario'] = $usuarioEncontrado['idUsuario'];
                 $_SESSION['nombre'] = $usuarioEncontrado['nombre'];
-                $_SESSION['rol'] = $usuarioEncontrado['rolUsuario']; 
+                $_SESSION['rol'] = $usuarioEncontrado['rolUsuario'];
 
                 // Redireccionamos a las vistas según el rol
                 if ($usuarioEncontrado['rolUsuario'] == 'admin') {
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 if (isset($_GET['accion']) && $_GET['accion'] == 'logout') {
-    session_destroy(); 
+    session_destroy();
     header("Location: ../Vista/index.php");
     exit();
 }
