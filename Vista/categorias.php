@@ -1,13 +1,16 @@
 <?php
 session_start();
-require_once '../Modelo/CategoriaDAO.php';
+
+use Modelo\CategoriaDAO;
 
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
     header("Location: login.php");
     exit();
 }
+
 $daoCategorias = new CategoriaDAO();
 $categoriaEditar = null;
+
 if (isset($_GET['accion']) && $_GET['accion'] == 'editar' && isset($_GET['id'])) {
     $categoriaEditar = $daoCategorias->obtenerPorId($_GET['id']);
 }
@@ -44,12 +47,18 @@ $lista = $daoCategorias->obtenerTodos();
                 <?php echo $categoriaEditar ? '️ Editar Categoría' : 'Nueva Categoría'; ?>
             </h3>
 
-            <?php if(isset($_GET['message'])): ?>
+            <?php if (isset($_GET['message'])): ?>
                 <div class="alert success">
                     <?php
-                        if($_GET['message']=='agregado') echo "¡Categoría agregada con éxito!";
-                        if($_GET['message']=='actualizado') echo "¡Cambios guardados correctamente!";
-                        if($_GET['message']=='eliminado') echo "Categoría eliminada.";
+                        if ($_GET['message'] == 'agregado') {
+                            echo "¡Categoría agregada con éxito!";
+                        }
+                        if ($_GET['message'] == 'actualizado') {
+                            echo "¡Cambios guardados correctamente!";
+                        }
+                        if ($_GET['message'] == 'eliminado') {
+                            echo "Categoría eliminada.";
+                        }
                     ?>
                 </div>
             <?php endif; ?>
@@ -62,13 +71,13 @@ $lista = $daoCategorias->obtenerTodos();
                     <input type="hidden" name="idCategoria" value="<?php echo $categoriaEditar->getIdCategoria(); ?>">
                 <?php endif; ?>
                 
-                <label>Nombre de la Categoría:</label>
+                <label for="nombre">Nombre de la Categoría:</label>
                 <!-- El value se rellena solo si estamos editando -->
-                <input type="text" name="nombre" required placeholder=" "
+                <input type="text" id="nombre" name="nombre" required placeholder=" "
                        value="<?php echo $categoriaEditar ? $categoriaEditar->getNombre() : ''; ?>">
                 
-                <label>Descripción:</label>
-                <textarea name="descripcion" rows="4" placeholder="Descripción de la categoría"><?php echo $categoriaEditar ? $categoriaEditar->getDescripcion() : ''; ?></textarea>
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" rows="4" placeholder="Descripción de la categoría"><?php echo $categoriaEditar ? $categoriaEditar->getDescripcion() : ''; ?></textarea>
                 
                 <button type="submit" class="btn" style="background-color:#005288; color:white; width:100%;">
                     <?php echo $categoriaEditar ? 'Guardar Cambios' : 'Crear Categoría'; ?>
