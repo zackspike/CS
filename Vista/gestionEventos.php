@@ -121,8 +121,8 @@ $listaEventos = $eventoDAO->obtenerEventos();
                 <div class="form-col">
                     <label>Tipo de Cupo:</label>
                     <select name="tipoCupo">
-                        <option value="Limitado">Limitado (Requiere registro)</option>
-                        <option value="Abierto">Abierto (Entrada libre)</option>
+                        <option value="Limitado">Requiere registro</option>
+                        <option value="Abierto">Entrada libre</option>
                     </select>
                 </div>
             </div>
