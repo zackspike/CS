@@ -1,46 +1,81 @@
 <?php
-
 use PHPUnit\Framework\TestCase;
+
 require_once __DIR__ . '/../../Modelo/Usuario.php';
 
-class UsuarioTest extends TestCase {
-
-    //PRUEBA DE CONSTRUCTOR Y GETTERS
-    public function testConstructorYGetters(){
-
-        $id = 1;
-        $nombre = "Karen";
-        $email = "karen@gmail.com";
-        $rol = "Administrador";
-        $contraseña = "pass123";
-
-        $usuario = new Usuario($id, $nombre, $email, $rol, $contraseña);
-
-        $this->assertEquals($id, $usuario->getIdUsuario());
-        $this->assertEquals($nombre, $usuario->getNombre());
-        $this->assertEquals($email, $usuario->getEmail());
-        $this->assertEquals($rol, $usuario->getRolUsuario());
-        $this->assertEquals($contraseña, $usuario->getContraseña());
-    }
-
-    //PRUEBA SETTERS
-    public function testSetters(){
-        $usuario = new Usuario(1, "Nombre Anterior", "anterior@mail.com", "Usuario", "oldPass");
-
-        $nuevoNombre = "Nombre Actualizado";
-        $nuevoEmail = "actualizado@mail.com";
-
-        $usuario->setNombre($nuevoNombre);
-        $usuario->setEmail($nuevoEmail);
-
-        //REVISAR QUE HUBIERON CAMBIOS CORRECTAMENTE
-        $this->assertEquals($nuevoNombre, $usuario->getNombre());
-        $this->assertEquals($nuevoEmail, $usuario->getEmail());
-
-        //REVISAR QUE LOS DEMAS NO CAMBIEN
+class UsuarioTest extends TestCase
+{
+    /**
+     * @test
+     */
+    public function testConstructor()
+    {
+        $usuario = new Usuario(1, 'Juan Pérez', 'juan@test.com', 'usuario', 'password123');
+        
         $this->assertEquals(1, $usuario->getIdUsuario());
-        $this->assertEquals("Usuario", $usuario->getRolUsuario());
-        $this->assertEquals("oldPass", $usuario->getContraseña());
-
+        $this->assertEquals('Juan Pérez', $usuario->getNombre());
+        $this->assertEquals('juan@test.com', $usuario->getEmail());
+        $this->assertEquals('usuario', $usuario->getRolUsuario());
+        $this->assertEquals('password123', $usuario->getPassword());
+    }
+    
+    /**
+     * @test
+     */
+    public function testGetters()
+    {
+        $usuario = new Usuario(5, 'María García', 'maria@test.com', 'admin', 'pass456');
+        
+        $this->assertEquals(5, $usuario->getIdUsuario());
+        $this->assertEquals('María García', $usuario->getNombre());
+        $this->assertEquals('maria@test.com', $usuario->getEmail());
+    }
+    
+    /**
+     * @test
+     */
+    public function testSetNombre()
+    {
+        $usuario = new Usuario(1, 'Test', 'test@test.com', 'usuario', 'pass');
+        
+        $usuario->setNombre('Carlos López');
+        
+        $this->assertEquals('Carlos López', $usuario->getNombre());
+    }
+    
+    /**
+     * @test
+     */
+    public function testSetEmail()
+    {
+        $usuario = new Usuario(1, 'Test', 'test@test.com', 'usuario', 'pass');
+        
+        $usuario->setEmail('nuevo@email.com');
+        
+        $this->assertEquals('nuevo@email.com', $usuario->getEmail());
+    }
+    
+    /**
+     * @test
+     */
+    public function testSetRol()
+    {
+        $usuario = new Usuario(1, 'Test', 'test@test.com', 'usuario', 'pass');
+        
+        $usuario->setRolUsuario('admin');
+        
+        $this->assertEquals('admin', $usuario->getRolUsuario());
+    }
+    
+    /**
+     * @test
+     */
+    public function testSetPassword()
+    {
+        $usuario = new Usuario(1, 'Test', 'test@test.com', 'usuario', 'pass123');
+        
+        $usuario->setPassword('nuevoPass456');
+        
+        $this->assertEquals('nuevoPass456', $usuario->getPassword());
     }
 }

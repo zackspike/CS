@@ -1,79 +1,146 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../Modelo/conexionBD.php';
-require_once __DIR__ . '/../../Modelo/Usuario.php';
 require_once __DIR__ . '/../../Modelo/UsuarioDAO.php';
+require_once __DIR__ . '/../../Modelo/Usuario.php';
 
-class UsuarioDAOTest extends TestCase {
 
-    private $dao;
-    private $conexion;
-
-    protected function setUp(): void {
-        // Conexión a la base de datos de prueba
-        $bd = new conexionBD();
-        $this->conexion = $bd->conectar();
-
-        $this->conexion->query("DELETE FROM Usuarios");
-
+class UsuarioDAOTest extends TestCase
+{
+    private UsuarioDAO $dao;
+    private $mockConexion;
+    private $mockStatement;
+    private $mockResult;
+    
+    protected function setUp(): void
+    {
+        $this->mockConexion = $this->createMock(mysqli::class);
+        $this->mockStatement = $this->createMock(mysqli_stmt::class);
+        $this->mockResult = $this->createMock(mysqli_result::class);
+        
         $this->dao = new UsuarioDAO();
+        
+        // inyectar mock
+        $reflection = new ReflectionClass($this->dao);
+        $property = $reflection->getProperty('conexion');
+        $property->setAccessible(true);
+        $property->setValue($this->dao, $this->mockConexion);
     }
-
-    public function testRegistrarUsuario() {
-        $usuario = new Usuario(
-            0,
-            "Jesús Test",
-            "jesus@test.com",
-            "usuario",
-            password_hash("1234", PASSWORD_BCRYPT)
-        );
-
+    
+    /**
+     * @test
+     */
+    public function testRegistrarUsuario()
+    {
+        $usuario = new Usuario(0, 'Juan Pérez', 'juan@test.com', 'usuario', 'password123');
+        
+        $this->mockConexion->expects($this->once())
+            ->method('prepare')
+            ->willReturn($this->mockStatement);
+        
+        $this->mockStatement->expects($this->once())
+            ->method('bind_param')
+            ->willReturn(true);
+        
+        $this->mockStatement->expects($this->once())
+            ->method('execute')
+            ->willReturn(true);
+        
+        $this->mockStatement->expects($this->once())
+            ->method('close');
+        
         $resultado = $this->dao->registrar($usuario);
-
+        
         $this->assertTrue($resultado);
-
-        // verificamos que se guardó
-        $consulta = $this->conexion->query("SELECT * FROM Usuarios WHERE email='jesus@test.com'");
-        $this->assertEquals(1, $consulta->num_rows);
     }
-
-    public function testLoginExitoso() {
-        // Insertar usuario manualmente
-        $passwordHash = password_hash("1234", PASSWORD_BCRYPT);
-
-        $this->conexion->query("
-            INSERT INTO Usuarios (nombre, email, password, rolUsuario)
-            VALUES ('Jesús Login', 'login@test.com', '$passwordHash', 'usuario')
-        ");
-
-        // Intentar login
-        $resultado = $this->dao->login("login@test.com", "1234");
-
-        $this->assertIsArray($resultado);
-        $this->assertEquals("Jesús Login", $resultado['nombre']);
-        $this->assertEquals("usuario", $resultado['rolUsuario']);
-        $this->assertArrayNotHasKey('password', $resultado);
-    }
-
-    public function testLoginFallidoPorPasswordIncorrecto() {
-        // Insertar usuario
-        $passwordHash = password_hash("correcto", PASSWORD_BCRYPT);
-
-        $this->conexion->query("
-            INSERT INTO Usuarios (nombre, email, password, rolUsuario)
-            VALUES ('Usuario Test', 'fail@test.com', '$passwordHash', 'usuario')
-        ");
-
-        // Password incorrecto
-        $resultado = $this->dao->login("fail@test.com", "incorrecto");
-
+    
+    /**
+     * @test
+     */
+    public function testRegistrarFalla()
+    {
+        $usuario = new Usuario(0, 'Test', 'test@test.com', 'usuario', 'pass');
+        
+        $this->mockConexion->method('prepare')->willReturn($this->mockStatement);
+        $this->mockStatement->method('bind_param')->willReturn(true);
+        $this->mockStatement->method('execute')->willReturn(false);
+        $this->mockStatement->method('close');
+        
+        $resultado = $this->dao->registrar($usuario);
+        
         $this->assertFalse($resultado);
     }
-
-    public function testLoginEmailInexistente() {
-        $resultado = $this->dao->login("noexiste@test.com", "1234");
-
+    
+    /**
+     * @test
+     */
+    public function testLoginExitoso()
+    {
+        $hashedPassword = password_hash('password123', PASSWORD_DEFAULT);
+        
+        $this->mockConexion->method('prepare')->willReturn($this->mockStatement);
+        $this->mockStatement->method('bind_param')->willReturn(true);
+        $this->mockStatement->method('execute')->willReturn(true);
+        $this->mockStatement->method('get_result')->willReturn($this->mockResult);
+        
+        $this->mockResult->expects($this->once())
+            ->method('fetch_assoc')
+            ->willReturn([
+                'idUsuario' => 5,
+                'nombre' => 'Juan Pérez',
+                'password' => $hashedPassword,
+                'rolUsuario' => 'usuario'
+            ]);
+        
+        $resultado = $this->dao->login('juan@test.com', 'password123');
+        
+        $this->assertIsArray($resultado);
+        $this->assertEquals(5, $resultado['idUsuario']);
+        $this->assertEquals('Juan Pérez', $resultado['nombre']);
+        $this->assertArrayNotHasKey('password', $resultado);
+    }
+    
+    /**
+     * @test
+     */
+    public function testLoginPasswordIncorrecto()
+    {
+        $hashedPassword = password_hash('password123', PASSWORD_DEFAULT);
+        
+        $this->mockConexion->method('prepare')->willReturn($this->mockStatement);
+        $this->mockStatement->method('bind_param')->willReturn(true);
+        $this->mockStatement->method('execute')->willReturn(true);
+        $this->mockStatement->method('get_result')->willReturn($this->mockResult);
+        
+        $this->mockResult->method('fetch_assoc')
+            ->willReturn([
+                'idUsuario' => 5,
+                'nombre' => 'Juan',
+                'password' => $hashedPassword,
+                'rolUsuario' => 'usuario'
+            ]);
+        
+        $resultado = $this->dao->login('juan@test.com', 'passwordIncorrecto');
+        
+        $this->assertFalse($resultado);
+    }
+    
+    /**
+     * @test
+     */
+    public function testLoginUsuarioNoExiste()
+    {
+        $this->mockConexion->method('prepare')->willReturn($this->mockStatement);
+        $this->mockStatement->method('bind_param')->willReturn(true);
+        $this->mockStatement->method('execute')->willReturn(true);
+        $this->mockStatement->method('get_result')->willReturn($this->mockResult);
+        
+        $this->mockResult->expects($this->once())
+            ->method('fetch_assoc')
+            ->willReturn(null);
+        
+        $resultado = $this->dao->login('noexiste@test.com', 'password');
+        
         $this->assertFalse($resultado);
     }
 }
