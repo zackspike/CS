@@ -20,7 +20,7 @@ class EditorialDAO extends CrudDAO {
     }
 
     public function agregar($editorial) {
-        $sql = "INSERT INTO Editoriales (nombreEditorial, numPuestoEditorial, ubicacionPuestoEditoral) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO Editoriales (nombreEditorial, numPuestoEditorial, ubicacionPuestoEditorial) VALUES (?, ?, ?)";
         
         $statement = $this->conexion->prepare($sql);
         
