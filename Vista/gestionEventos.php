@@ -129,10 +129,6 @@ $listaEventos = $eventoDAO->obtenerEventos();
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="form-col">
-                    <label>Cupo Máximo de Personas:</label>
-                    <input type="number" name="numParticipantes" required min="1" placeholder="Ingresa el número deseado">
-                </div>
             </div>
 
             <div class="form-row">
