@@ -71,7 +71,7 @@ $listaEventos = $eventoDAO->obtenerEventos();
                 </div>
                 <div class="form-col">
                     <label>Cupo Máximo de Personas:</label>
-                    <input type="number" name="numParticipantes" placeholder="Ingresa solo el número">
+                    <input type="number" name="numParticipantes" required min="1" placeholder="Ingresa solo el número">
                 </div>
             </div>
 
@@ -131,7 +131,7 @@ $listaEventos = $eventoDAO->obtenerEventos();
             <div class="form-row">
                     <div class="form-col">
                         <label>Imagen:</label>
-                        <input type="file" name="imagen" accept="image/*" required>
+                        <input type="file" name="imagen" accept="image/*">
                     </div>
             </div>
 
@@ -154,14 +154,14 @@ $listaEventos = $eventoDAO->obtenerEventos();
             <div id="campos-conferencia" class="dynamic-section">
                 <h4>Detalles de Conferencia</h4>
                 <label>Tipo de Conferencia:</label>
-                <input type="text" name="tipoConferencia" placeholder="Presentación de libro, divulgación, etc..." required>
+                <input type="text" name="tipoConferencia" placeholder="Presentación de libro, divulgación, etc...">
             </div>
 
             <!-- Datos para Premiación -->
             <div id="campos-premiacion" class="dynamic-section">
                 <h4>Detalles de Premiación</h4>
                 <label>Nombre del Ganador (Opcional):</label>
-                <input type="text" name="ganadorPremiacion" placeholder="Nombre del ganador (N/A si no se conoce)" required>
+                <input type="text" name="ganadorPremiacion" placeholder="Nombre del ganador (N/A si no se conoce)">
             </div>
 
             <!-- Datos para Taller -->

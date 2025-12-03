@@ -63,8 +63,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         if ($eventoDAO->agregar($evento)) {
             header("Location: ../Vista/gestionEventos.php?msg=creado");
+            exit();
         } else {
-            header("Location: ../Vista/gestionEventos.php?error=fallo_creacion");
+            header("Location: ../Vista/gestionEventos.php?error=fallo_creacion");  
+            exit();
         }
     }
 }
