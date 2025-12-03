@@ -1,26 +1,35 @@
 <?php
 class Registro {
     private int $idRegistro;
-    private string $idUsuario;
-    private Fecha $fechaRegistro;
+    private string $fechaRegistro;
     private bool $asistio;
+    private int $idUsuario;
+    private int $idEvento;
     
-    public function __construct(int $idRegistro, string $idUsuario, Fecha $fechaRegistro, bool $asistio) {
+    //Detalles del evento en el que se registra el usuario
+    private ?string $tituloEvento = null;
+    private ?string $fechaEvento = null;
+    private ?string $nombreSalon = null;
+    private ?string $horaInicio = null;
+    private ?string $tipoEvento = null;
+    
+    public function __construct(?int $idRegistro, string $fechaRegistro, bool $asistio, int $idUsuario, int $idEvento) {
         $this->idRegistro = $idRegistro;
-        $this->idUsuario = $idUsuario;
         $this->fechaRegistro = $fechaRegistro;
         $this->asistio = $asistio;
+        $this->idUsuario = $idUsuario;
+        $this->idEvento = $idEvento;
     }
 
     public function getIdRegistro(): int {
         return $this->idRegistro;
     }
 
-    public function getIdUsuario(): string {
+    public function getIdUsuario(): int{
         return $this->idUsuario;
     }
 
-    public function getFechaRegistro(): Fecha {
+    public function getFechaRegistro(): string {
         return $this->fechaRegistro;
     }
 
@@ -32,16 +41,52 @@ class Registro {
         $this->idRegistro = $idRegistro;
     }
 
-    public function setIdUsuario(string $idUsuario): void {
+    public function setIdUsuario(int $idUsuario): void {
         $this->idUsuario = $idUsuario;
     }
 
-    public function setFechaRegistro(Fecha $fechaRegistro): void {
+    public function setFechaRegistro(string $fechaRegistro): void {
         $this->fechaRegistro = $fechaRegistro;
     }
 
     public function setAsistio(bool $asistio): void {
         $this->asistio = $asistio;
+    }
+
+    public function getIdEvento(): int {
+        return $this->idEvento;
+    }
+
+    public function setIdEvento(int $idEvento): void {
+        $this->idEvento = $idEvento;
+    }
+
+    public function setDetallesEvento(string $titulo, string $fecha, string $horaInicio, string $salon, string $tipo): void {
+        $this->tituloEvento = $titulo;
+        $this->fechaEvento = $fecha;
+        $this->horaInicio = $horaInicio;
+        $this->nombreSalon = $salon;
+        $this->tipoEvento = $tipo;
+    }
+    
+    public function getTituloEvento(): ?string {
+        return $this->tituloEvento;
+    }
+
+    public function getFechaEvento(): ?string {
+        return $this->fechaEvento;
+    }
+
+    public function getNombreSalon(): ?string {
+        return $this->nombreSalon;
+    }
+
+    public function getHoraInicio(): ?string {
+        return $this->horaInicio;
+    }
+
+    public function getTipoEvento(): ?string {
+        return $this->tipoEvento;
     }
 
 

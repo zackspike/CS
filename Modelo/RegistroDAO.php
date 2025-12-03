@@ -1,14 +1,8 @@
 <?php
-require_once 'ConexionBD.php';
+require_once 'DAO.php';
 require_once 'Registro.php';
 
-class RegistroDAO {
-    private $conexion;
-
-    public function __construct() {
-        $bd = new ConexionBD();
-        $this->conexion = $bd->conectar();
-    }
+class RegistroDAO extends DAO {
 
     public function yaEstaInscrito($idUsuario, $idEvento) {
         $sql = "SELECT idRegistro FROM Registros WHERE idUsuario = ? AND idEvento = ?";

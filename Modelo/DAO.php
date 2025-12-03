@@ -1,14 +1,12 @@
 <?php
-/**
- * Description of DAO
- *
- * @author Gabriela Puch
- */
+require_once __DIR__ . '/conexionBD.php';
+
 class DAO {
-    private $conexion;
+    protected $conexion;
 
     public function __construct() {
         $bd = new ConexionBD();
         $this->conexion = $bd->conectar();
     }
 }
+?>

@@ -11,7 +11,7 @@ $tituloSeccion = "";
 
 if ($seccion == 'editoriales') {
     $editorialDAO = new EditorialDAO();
-    $datosParaMostrar = $editorialDAO->obtenerEditoriales(); 
+    $datosParaMostrar = $editorialDAO->obtenerTodos(); 
     $tituloSeccion = "Editoriales Participantes";
 
 } else {
@@ -119,8 +119,6 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
                                     <!-- Botón -->
                                     <?php if ($estaLogueado && $rol == 'usuario'): ?>
                                         <a href="confirmarRegistro.php?id=<?php echo $ev['idEvento']; ?>" class="card-btn">Inscribirme</a>
-                                    <?php elseif ($estaLogueado && $rol == 'admin'): ?>
-                                        <a href="gestionEventos.php" class="card-btn btn-admin-edit">Editar</a>
                                     <?php endif; ?>
                                 </div>
                             </div>

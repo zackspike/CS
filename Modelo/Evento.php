@@ -6,14 +6,21 @@ class Evento {
     private string $descripcion;
     private string $ponente;
     private int $numParticipantes;
-    private Fecha $fecha;
-    private Hora $horaInicio;
-    private Hora $horaFinal;
+    private string $fecha;
+    private string $horaInicio;
+    private string $horaFinal;
     private string $tipoCupo;
-    private Categoria $categoria;
-    private Salon $ubicacion;
+    private string $tipoEvento;
+    private int $idCategoria;
+    private int $idSalon;
+    private string $imagen;
     
-    public function __construct(int $idEvento, string $titulo, string $descripcion, string $ponente, int $numParticipantes, Fecha $fecha, Hora $horaInicio, Hora $horaFinal, string $tipoCupo, Categoria $categoria, Salon $ubicacion) {
+    private ?string $tipoConferencia = null;
+    private ?string $ganadorPremiacion = null;
+    
+    public function __construct(int $idEvento, string $titulo, string $descripcion, string $ponente, int $numParticipantes,
+            String $fecha, String $horaInicio, String $horaFinal, string $tipoCupo,string $tipoEvento, int $idCategoria,
+            int $idSalon, string $imagen) {
         $this->idEvento = $idEvento;
         $this->titulo = $titulo;
         $this->descripcion = $descripcion;
@@ -23,8 +30,10 @@ class Evento {
         $this->horaInicio = $horaInicio;
         $this->horaFinal = $horaFinal;
         $this->tipoCupo = $tipoCupo;
-        $this->categoria = $categoria;
-        $this->ubicacion = $ubicacion;
+        $this->tipoEvento= $tipoEvento;
+        $this->idCategoria = $idCategoria;
+        $this->idSalon = $idSalon;
+        $this->imagen = $imagen;
     }
 
         public function getIdEvento(): int {
@@ -47,15 +56,15 @@ class Evento {
         return $this->numParticipantes;
     }
 
-    public function getFecha(): Fecha {
+    public function getFecha(): string {
         return $this->fecha;
     }
 
-    public function getHoraInicio(): Hora {
+    public function getHoraInicio(): string {
         return $this->horaInicio;
     }
 
-    public function getHoraFinal(): Hora {
+    public function getHoraFinal(): string {
         return $this->horaFinal;
     }
 
@@ -63,15 +72,23 @@ class Evento {
         return $this->tipoCupo;
     }
 
-    public function getCategoria(): Categoria {
-        return $this->categoria;
+    public function getIdCategoria(): int {
+        return $this->idCategoria;
     }
 
-    public function getUbicacion(): Salon {
-        return $this->ubicacion;
+    public function getIdSalon(): int {
+        return $this->idSalon;
     }
 
-    public function setIdEvento(int $idEvento): void {
+    public function getImagen(): string {
+        return $this->imagen;
+    }
+
+    public function setImagen(string $imagen): void {
+        $this->imagen = $imagen;
+    }
+
+        public function setIdEvento(int $idEvento): void {
         $this->idEvento = $idEvento;
     }
 
@@ -91,15 +108,15 @@ class Evento {
         $this->numParticipantes = $numParticipantes;
     }
 
-    public function setFecha(Fecha $fecha): void {
+    public function setFecha(string $fecha): void {
         $this->fecha = $fecha;
     }
 
-    public function setHoraInicio(Hora $horaInicio): void {
+    public function setHoraInicio(string $horaInicio): void {
         $this->horaInicio = $horaInicio;
     }
 
-    public function setHoraFinal(Hora $horaFinal): void {
+    public function setHoraFinal(string $horaFinal): void {
         $this->horaFinal = $horaFinal;
     }
 
@@ -107,13 +124,34 @@ class Evento {
         $this->tipoCupo = $tipoCupo;
     }
 
-    public function setCategoria(Categoria $categoria): void {
-        $this->categoria = $categoria;
+    public function setIdCategoria(int $idCategoria): void {
+        $this->idCategoria = $this->idCategoria;
     }
 
-    public function setUbicacion(Salon $ubicacion): void {
-        $this->ubicacion = $ubicacion;
+    public function setIdSalon(int $idSalon): void {
+        $this->idSalon = $idSalon;
+    }
+    public function getTipoEvento(): string {
+        return $this->tipoEvento;
     }
 
-    
+    public function setTipoEvento(string $tipoEvento): void {
+        $this->tipoEvento = $tipoEvento;
+    }
+
+    public function getTipoConferencia(): ?string {
+        return $this->tipoConferencia;
+    }
+
+    public function getGanadorPremiacion(): ?string {
+        return $this->ganadorPremiacion;
+    }
+
+    public function setTipoConferencia(?string $tipoConferencia): void {
+        $this->tipoConferencia = $tipoConferencia;
+    }
+
+    public function setGanadorPremiacion(?string $ganadorPremiacion): void {
+        $this->ganadorPremiacion = $ganadorPremiacion;
+    }
 }

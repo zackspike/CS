@@ -12,7 +12,7 @@ if (isset($_GET['accion']) && $_GET['accion'] == 'editar' && isset($_GET['id']))
     $editorialEditar = $daoSalones->obtenerPorId($_GET['id']);
 }
 
-$lista = $daoSalones->obtenerSalones();
+$lista = $daoSalones->obtenerTodos();
 ?>
 
 <html>

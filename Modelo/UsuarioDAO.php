@@ -1,15 +1,9 @@
 <?php
 
-require_once 'ConexionBD.php';
+require_once 'DAO.php';
 require_once 'Usuario.php'; 
 
-class UsuarioDAO {
-    private $conexion;
-
-    public function __construct() {
-        $bd = new ConexionBD();
-        $this->conexion = $bd->conectar();
-    }
+class UsuarioDAO extends DAO {
 
     public function registrar(Usuario $usuario) {
         $sql = "INSERT INTO Usuarios (nombre, email, password) VALUES (?, ?, ?)";
