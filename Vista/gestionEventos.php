@@ -69,10 +69,19 @@ $listaEventos = $eventoDAO->obtenerEventos();
                     <label>Ponente:</label>
                     <input type="text" name="ponente" required placeholder="Nombre del conferencista">
                 </div>
+                <!-- Datos de la categoría -->
                 <div class="form-col">
-                    <label>Cupo Máximo de Personas:</label>
-                    <input type="number" name="numParticipantes" required min="1" placeholder="Ingresa solo el número">
+                    <label>Categoría:</label>
+                    <select name="idCategoria" required>
+                        <option value="">Selecciona una Categoría</option>
+                        <?php foreach($listaCategorias as $categoria): ?>
+                            <option value="<?php echo $categoria->getIdCategoria(); ?>">
+                                <?php echo $categoria->getNombre(); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
+                
             </div>
 
             <div class="form-row">
@@ -91,19 +100,6 @@ $listaEventos = $eventoDAO->obtenerEventos();
             </div>
 
             <div class="form-row">
-                <!-- Datos de la categoría -->
-                <div class="form-col">
-                    <label>Categoría:</label>
-                    <select name="idCategoria" required>
-                        <option value="">Selecciona una Categoría</option>
-                        <?php foreach($listaCategorias as $categoria): ?>
-                            <option value="<?php echo $categoria->getIdCategoria(); ?>">
-                                <?php echo $categoria->getNombre(); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
                 <!-- Datos del salón -->
                 <div class="form-col">
                     <label>Salón Asignado:</label>
@@ -115,6 +111,10 @@ $listaEventos = $eventoDAO->obtenerEventos();
                             </option>
                         <?php endforeach; ?>
                     </select>
+                </div>
+                <div class="form-col">
+                    <label>Cupo Máximo de Personas:</label>
+                    <input type="number" name="numParticipantes" required min="1" placeholder="Ingresa solo el número">
                 </div>
             </div>
 
