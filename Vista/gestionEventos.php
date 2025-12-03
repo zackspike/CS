@@ -184,10 +184,11 @@ $listaEventos = $eventoDAO->obtenerEventos();
             <thead>
                 <tr>
                     <th style="width: 10%;">Imagen</th>
-                    <th style="width: 25%;">Título</th>
-                    <th style="width: 15%;">Tipo</th>
-                    <th style="width: 20%;">Fecha / Hora</th>
+                    <th style="width: 20%;">Título</th>
+                    <th style="width: 10%;">Tipo</th>
+                    <th style="width: 15%;">Fecha / Hora</th>
                     <th style="width: 15%;">Lugar</th>
+                    <th style="width: 15%;">Aforo / Cupo</th> 
                     <th style="width: 15%; text-align: center;">Acción</th>
                 </tr>
             </thead>
@@ -199,7 +200,18 @@ $listaEventos = $eventoDAO->obtenerEventos();
                         </td>
                     </tr>
                 <?php else: ?>
-                    <?php foreach($listaEventos as $ev): ?>
+                    <?php foreach($listaEventos as $ev):
+                        $capacidadTotal = (int)$ev['maxCapacidad'];     
+                        $inscritos = (int)$ev['totalInscritos'];        
+                        $disponibles = $capacidadTotal - $inscritos;    
+                        
+                        $colorEstado = "#28a745"; 
+                        if ($disponibles == 0) {
+                            $colorEstado = "#dc3545"; 
+                        } elseif ($disponibles < ($capacidadTotal * 0.2)) {
+                            $colorEstado = "#ffc107"; 
+                        } 
+                        ?>
                    <tr>
                        <td>
                             <?php if(!empty($ev['imagen'])): ?>
@@ -224,19 +236,42 @@ $listaEventos = $eventoDAO->obtenerEventos();
                             </small>
                         </td>
                         <td><?php echo $ev['nombreSalon']; ?></td>
+                        <td style="font-size: 0.9rem;">
+                        <div>
+                            <strong><?php echo $inscritos; ?> / <?php echo $capacidadTotal; ?></strong> ocupados
+                        </div>
+                        
+                        <div style="margin-top:4px;">
+                            <span style="color: <?php echo $colorEstado; ?>; font-weight:bold;">
+                                <?php 
+                                        if($disponibles <= 0) echo "¡LLENO!";
+                                        else echo $disponibles . " disponibles";
+                                ?>
+                            </span>
+                        </div>
+
+                        <div style="background:#eee; height:6px; width:100%; border-radius:3px; margin-top:5px; overflow:hidden;">
+                            <?php 
+                                    // Regla de tres para el ancho de la barra
+                                    $porcentaje = ($capacidadTotal > 0) ? ($inscritos / $capacidadTotal) * 100 : 0; 
+                            ?>
+                            <div style="background:<?php echo $colorEstado; ?>; height:100%; width:<?php echo $porcentaje; ?>%;"></div>
+                        </div>
+                        </td>
                         <td style="text-align: center;">
-                            <a href="verInscritos.php?idEvento=<?php echo $ev['idEvento']; ?>"
-                               class="btn-constancia"
-                               >
+                            <a href="verInscritos.php?idEvento=<?php echo $ev['idEvento']; ?>" 
+                                class="btn-constancia"
+                                accesskey=""style="display:inline-block; margin-right:10px; text-decoration:none; color:#005288; 
+                                font-weight:bold; font-size:0.9rem;"> 
                                 Inscritos
                             </a>
-                           <a href="../Controlador/EventoController.php?accion=eliminar&id=<?php echo $ev['idEvento']; ?>" 
-                                class="btn-rojo"
+                            <a href="../Controlador/EventoController.php?accion=eliminar&id=<?php echo $ev['idEvento']; ?>" 
+                                class="btn-rojo" 
                                 onclick="return confirm('¿Estás seguro de eliminar este evento?');">
                                 Borrar
                             </a>
-                           </td>
-                       </tr>
+                        </td>
+                    </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </tbody>

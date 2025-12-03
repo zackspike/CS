@@ -102,7 +102,8 @@ class EventoDAO extends DAO {
 
     // Listar eventos con sus nombres de Categoria y su Salon correspondientes
     public function obtenerEventos() {
-        $sql = "SELECT evento.*, categoria.nombre as nombreCategoria, salon.nombreSalon 
+        $sql = "SELECT evento.*, categoria.nombre as nombreCategoria, salon.nombreSalon, salon.maxCapacidad, 
+                (SELECT COUNT(*) FROM Registro WHERE idEvento = evento.idEvento) as totalInscritos
                 FROM Eventos evento 
                 JOIN Categorias categoria ON evento.idCategoria = categoria.idCategoria 
                 JOIN Salones salon ON evento.idSalon = salon.idSalon
