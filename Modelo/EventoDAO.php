@@ -102,21 +102,30 @@ class EventoDAO extends DAO {
 
     // Listar eventos con sus nombres de Categoria y su Salon correspondientes
     public function obtenerEventos() {
-        $sql = "SELECT evento.*, categoria.nombre as nombreCategoria, salon.nombreSalon, salon.maxCapacidad, 
-                (SELECT COUNT(*) FROM Registro WHERE idEvento = evento.idEvento) as totalInscritos
+        
+        $sql = "SELECT evento.*, 
+                    categoria.nombre as nombreCategoria, 
+                    salon.nombreSalon, 
+                    salon.maxCapacidad, 
+                    (SELECT COUNT(*) FROM Registros WHERE idEvento = evento.idEvento) as totalInscritos
                 FROM Eventos evento 
                 JOIN Categorias categoria ON evento.idCategoria = categoria.idCategoria 
                 JOIN Salones salon ON evento.idSalon = salon.idSalon
                 ORDER BY evento.fecha DESC, evento.horaInicio ASC";
         
         $result = $this->conexion->query($sql);
-        $lista = [];
         
+        if (!$result) {
+            error_log("Error en obtenerEventos: " . $this->conexion->error);
+            return [];
+        }
+
+        $lista = [];
         while ($fila = $result->fetch_assoc()) {
             $lista[] = $fila; 
         }
         return $lista;
     }
 }
-
+?>
 
