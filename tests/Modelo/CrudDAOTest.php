@@ -9,6 +9,7 @@ class CrudDAOTest extends TestCase
     private $mockConexion;
     private $mockStatement;
     private $mockResult;
+    private const QUERY_TABLE = 'SELECT * FROM test_table';
     
     protected function setUp(): void
     {
@@ -45,7 +46,7 @@ class CrudDAOTest extends TestCase
     {
         $this->mockConexion->expects($this->once())
             ->method('query')
-            ->with('SELECT * FROM test_table')
+            ->with(self::QUERY_TABLE)
             ->willReturn(false); // Simular que no hay resultados
         
         $resultado = $this->dao->obtenerTodos();
@@ -77,7 +78,7 @@ class CrudDAOTest extends TestCase
         
         $this->mockConexion->expects($this->once())
             ->method('query')
-            ->with('SELECT * FROM test_table')
+            ->with(self::QUERY_TABLE)
             ->willReturn($this->mockResult);
         
         $resultado = $this->dao->obtenerTodos();
@@ -96,7 +97,7 @@ class CrudDAOTest extends TestCase
     {
         $this->mockConexion->expects($this->once())
             ->method('query')
-            ->with($this->equalTo('SELECT * FROM test_table'))
+            ->with($this->equalTo(self::QUERY_TABLE))
             ->willReturn(false);
         
         $this->dao->obtenerTodos();
