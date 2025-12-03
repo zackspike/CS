@@ -40,7 +40,7 @@ else if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
     
     $idEditorial = $_GET['id'];
     
-    if ($daoSEditorial->eliminar($idEditorial)) {
+    if ($daoEditorial->eliminar($idEditorial)) {
         header("Location: ../Vista/editoriales.php?msg=eliminado");
     } else {
         header("Location: ../Vista/editoriales.php?error=no_borrado");
