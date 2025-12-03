@@ -12,8 +12,8 @@ class SalonDAO extends CrudDAO {
 
     protected function mapear($fila) {
         return new Salon(
-            (int)$fila['idSalon'], 
-            $fila['nombreSalon'], 
+            (int)$fila['idSalon'],
+            $fila['nombreSalon'],
             $fila['maxCapacidad']
         );
     }
@@ -47,4 +47,3 @@ class SalonDAO extends CrudDAO {
         return $exito;
     }
 }
-?>

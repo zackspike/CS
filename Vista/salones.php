@@ -14,8 +14,8 @@ if (isset($_GET['accion']) && $_GET['accion'] == 'editar' && isset($_GET['id']))
 
 $lista = $daoSalones->obtenerTodos();
 ?>
-
-<html>
+<!DOCTYPE html>
+<html lang="es">
     <head>
         <title>Gestionar Salones</title>
         <meta charset="UTF-8">
@@ -46,7 +46,7 @@ $lista = $daoSalones->obtenerTodos();
 
             <?php if(isset($_GET['message'])): ?>
                 <div class="alert success">
-                    <?php 
+                    <?php
                         if($_GET['message']=='agregado') echo "¡Salón agregado con éxito!";
                         if($_GET['message']=='actualizado') echo "¡Cambios guardados correctamente!";
                         if($_GET['message']=='eliminado') echo "Salón eliminado.";
@@ -108,8 +108,8 @@ $lista = $daoSalones->obtenerTodos();
                                     Editar
                                 </a>
                                 
-                                <a href="../Controlador/SalonController.php?accion=eliminar&id=<?php echo $salon->getIdSalon(); ?>" 
-                                   class="btn-action btn-delete" 
+                                <a href="../Controlador/SalonController.php?accion=eliminar&id=<?php echo $salon->getIdSalon(); ?>"
+                                   class="btn-action btn-delete"
                                    onclick="return confirm('¿Eliminar este salón?');">
                                    Borrar
                                 </a>

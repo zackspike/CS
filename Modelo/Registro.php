@@ -89,6 +89,4 @@ class Registro {
         return $this->tipoEvento;
     }
 
-
-
 }

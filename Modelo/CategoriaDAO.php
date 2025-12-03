@@ -12,8 +12,8 @@ class CategoriaDAO extends CrudDAO {
 
     protected function mapear($fila) {
         return new Categoria(
-            (int)$fila['idCategoria'], 
-            $fila['nombre'], 
+            (int)$fila['idCategoria'],
+            $fila['nombre'],
             $fila['descripcion']
         );
     }
@@ -47,4 +47,3 @@ class CategoriaDAO extends CrudDAO {
         return $exito;
     }
 }
-?>

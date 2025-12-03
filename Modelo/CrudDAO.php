@@ -7,14 +7,10 @@ require_once 'DAO.php';
  */
 abstract class CrudDAO extends DAO {
 
-    protected $nombreTabla; 
-    protected $nombreId;    
+    protected $nombreTabla;
+    protected $nombreId;
 
-    public function __construct() {
-        parent::__construct();
-    }
-
-    abstract protected function mapear($fila); 
+    abstract protected function mapear($fila);
     abstract public function agregar($entidad);
     abstract public function actualizar($entidad);
 
@@ -62,4 +58,3 @@ abstract class CrudDAO extends DAO {
         return $resultado;
     }
 }
-?>

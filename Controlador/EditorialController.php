@@ -18,9 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_POST['a
     } else {
         header("Location: ../Vista/editoriales.php?error=fallo_agregar");
     }
-} 
+}
 //Modificar editorial
-else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_POST['accion'] == 'actualizar') {
+elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_POST['accion'] == 'actualizar') {
     
     $id = $_POST['idEditorial'];
     $nombreEditorialNuevo = $_POST['nombreEditorial'];
@@ -36,7 +36,7 @@ else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_PO
     }
 }
 //Eliminar editoriales
-else if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
+elseif (isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
     
     $idEditorial = $_GET['id'];
     

@@ -6,7 +6,7 @@
 
 require_once '../Modelo/Evento.php';
 require_once '../Modelo/EventoDAO.php';
-require_once '../Modelo/SalonDAO.php'; 
+require_once '../Modelo/SalonDAO.php';
 
 $eventoDAO = new EventoDAO();
 $salonDAO = new SalonDAO();
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($accion == 'crear_evento') {
         
         $idSalon = (int)$_POST['idSalon'];
-        $numParticipantes = 0;  
+        $numParticipantes = 0;
         
         $salonSeleccionado = $salonDAO->obtenerPorId($idSalon);
         
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $idCat = (int)$_POST['idCategoria'];
         
         $rutaImagen = null;
-        $tipoEvento = $_POST['tipoEvento']; 
+        $tipoEvento = $_POST['tipoEvento'];
 
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
             $nombreOriginal = $_FILES['imagen']['name'];
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        $evento = new Evento(0, $titulo, $descripcion, $ponente, $numParticipantes, $fecha, 
+        $evento = new Evento(0, $titulo, $descripcion, $ponente, $numParticipantes, $fecha,
                 $horaInicial, $horaFin, $cupo, $tipoEvento, $idCat, $idSalon, $rutaImagen);
                 
         if ($tipoEvento == 'conferencia') {
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar' && isset($_GET['id'])) {
         $idEvento = (int)$_GET['id'];
         if ($eventoDAO->eliminar($idEvento)) {
@@ -85,4 +85,3 @@ else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         }
     }
 }
-?>

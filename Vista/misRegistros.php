@@ -7,7 +7,7 @@ if (!isset($_SESSION['idUsuario'])) { header("Location: login.php"); exit(); }
 $daoRegistro = new RegistroDAO();
 $misRegistros = $daoRegistro->obtenerPorUsuario($_SESSION['idUsuario']);
 ?>
-
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <title>Mis Registros</title>
@@ -20,7 +20,7 @@ $misRegistros = $daoRegistro->obtenerPorUsuario($_SESSION['idUsuario']);
 
     <div class="header">
         <div class="header-container">
-            <div class="logo-container"><a href="inicio.php"><img src="../Assets/logoFILEY.png" class="logo"></a></div>
+            <div class="logo-container"><a href="inicio.php"><img src="../Assets/logoFILEY.png" class="logo" alt="logo"></a></div>
             <div class="nav-menu">
                 <a href="index.php" class="nav-link">Volver a Inicio</a>
                 <span class="usuario-info"><?php echo htmlspecialchars($_SESSION['nombre']); ?></span>
@@ -83,7 +83,7 @@ $misRegistros = $daoRegistro->obtenerPorUsuario($_SESSION['idUsuario']);
                                         </button>
 
                                         <a href="../Controlador/RegistroController.php?accion=cancelar&idRegistro=<?php echo $registro->getIdRegistro(); ?>" 
-                                           class="btn-cancelar" onclick="return confirm('¿Seguro que deseas cancelar tu asistencia?');">
+                                        class="btn-cancelar" onclick="return confirm('¿Seguro que deseas cancelar tu asistencia?');">
                                             Cancelar
                                         </a>
                                     <?php endif; ?>

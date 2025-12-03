@@ -5,7 +5,7 @@ $idEvento = isset($_GET['id']) ? $_GET['id'] : 0;
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <title>Confirmar Inscripción</title>
     <meta charset="UTF-8">

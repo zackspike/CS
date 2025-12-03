@@ -9,7 +9,8 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
 $nombreAdmin = $_SESSION['nombre'];
 ?>
 
-<html>
+<!DOCTYPE html>
+<html lang="es>
     <head>
         <title>Admin FILEY</title>
         <meta charset="UTF-8">

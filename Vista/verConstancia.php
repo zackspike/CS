@@ -11,8 +11,8 @@ if (!$datos) {die("Error: Constancia no encontrada."); }
 if ($datos['asistio'] != 1){ die("Error: Asistencia no validada por el administrador.");}
 if ($datos['tipoEvento'] != 'taller') {die("Error: Este evento no emite constancia.");}
 ?>
-
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <title>Constancia - <?php echo $datos['titulo']; ?></title>
     <meta charset="UTF-8">
@@ -35,11 +35,11 @@ if ($datos['tipoEvento'] != 'taller') {die("Error: Este evento no emite constanc
         </p>
         
         <div class="fecha-emision">
-            Mérida, Yucatán a <?php echo date("d", strtotime($datos['fecha'])); ?> de 
-            <?php 
+            Mérida, Yucatán a <?php echo date("d", strtotime($datos['fecha'])); ?> de
+            <?php
                 $meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
                 echo $meses[date("n", strtotime($datos['fecha'])) - 1];
-            ?> 
+            ?>
             del <?php echo date("Y", strtotime($datos['fecha'])); ?>.
         </div>
         

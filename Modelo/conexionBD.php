@@ -1,6 +1,5 @@
 <?php
-
-class conexionBD {
+class ConexionBD {
     private $hostname = "localhost";
     private $username = "root";
     private $password = "";
@@ -21,4 +20,3 @@ class conexionBD {
         return $mysqli;
     }
 }
-

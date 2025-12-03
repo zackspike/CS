@@ -11,7 +11,7 @@ $tituloSeccion = "";
 
 if ($seccion == 'editoriales') {
     $editorialDAO = new EditorialDAO();
-    $datosParaMostrar = $editorialDAO->obtenerTodos(); 
+    $datosParaMostrar = $editorialDAO->obtenerTodos();
     $tituloSeccion = "Editoriales Participantes";
 
 } else {
@@ -36,13 +36,13 @@ $estaLogueado = isset($_SESSION['idUsuario']);
 $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : '';
 $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
 ?>
-
-<html>
-    <head>
-        <title>FILEY - <?php echo $tituloSeccion; ?></title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../StyleSheets/Inicio.css">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>FILEY - <?php echo $tituloSeccion; ?></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../StyleSheets/Inicio.css">
     </head>
     <body>
         <div class="header">
@@ -74,7 +74,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
             </div>
         </div>
         
-        <!-- Todo el contenido -->        
+        <!-- Contenido -->
         <div class="main-container">
             <div class="welcome-section">
                 <h1>Bienvenido a la FILEY 2025</h1>
@@ -99,13 +99,13 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
                             <div class="event-card">
                                 <div class="card-img-container">
                                     <?php if (!empty($ev['imagen'])): ?>
-                                        <img src="../Assets/<?php echo $ev['imagen']; ?>" class="card-img">
+                                        <img src="../Assets/<?php echo $ev['imagen']; ?>" class="card-img" alt="Logo">
                                     <?php else: ?>
                                         <div class="card-no-img">Sin Imagen</div>
                                     <?php endif; ?>
                                 </div>
                                 <div class="card-content">
-                                    <?php 
+                                    <?php
                                         $tipo = $ev['tipoEvento'];
                                         $claseTag = ($tipo=='taller') ? 'tag-taller' : (($tipo=='premiacion') ? 'tag-premiacion' : 'tag-conferencia');
                                     ?>
