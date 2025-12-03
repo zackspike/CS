@@ -1,106 +1,50 @@
 <?php
-
-/**
- *
- * @author Isaac Herrera
- */
-
-require_once 'DAO.php';
+require_once 'CrudDAO.php';
 require_once 'Categoria.php';
 
-class CategoriaDAO extends DAO {
+class CategoriaDAO extends CrudDAO {
 
-    public function agregar(Categoria $categoria) {
+    public function __construct() {
+        parent::__construct();
+        $this->nombreTabla = "Categorias";
+        $this->nombreId = "idCategoria";
+    }
+
+    protected function mapear($fila) {
+        return new Categoria(
+            (int)$fila['idCategoria'], 
+            $fila['nombre'], 
+            $fila['descripcion']
+        );
+    }
+
+    public function agregar($categoria) {
         $sql = "INSERT INTO Categorias (nombre, descripcion) VALUES (?, ?)";
-        
         $statement = $this->conexion->prepare($sql);
         
-        // Obtenemos los valores del objeto
-        $nombreCat = $categoria->getNombre();
-        $descripCat = $categoria->getDescripcion();
+        $nombre = $categoria->getNombre();
+        $desc = $categoria->getDescripcion();
         
-        $statement ->bind_param("ss", $nombreCat, $descripCat);
+        $statement->bind_param("ss", $nombre, $desc);
         
-        if($statement->execute()) {
-            $statement ->close();
-            return true;
-        } else {
-            $statement ->close();
-            return false;
-        }
-    }
-
-    public function obtenerPorId($id) {
-        $sql = "SELECT * FROM Categorias WHERE idCategoria = ?";
-        $statement = $this->conexion->prepare($sql);
-        $statement->bind_param("i", $id);
-        $statement->execute();
-        $result = $statement->get_result();
-        
-        if (($fila = $result->fetch_assoc())) {
-            $categoria = new Categoria(
-                (int)$fila['idCategoria'], 
-                $fila['nombre'], 
-                $fila['descripcion']
-            );
-            $statement->close();
-            return $categoria;
-        }
+        $exito = $statement->execute();
         $statement->close();
-        return null;
+        return $exito;
     }
 
-    //Obtener la tabla de categorías de la BD
-    public function obtenerCategorias() {
-        $sql = "SELECT * FROM Categorias";
-        $result = $this->conexion->query($sql);
-        
-        $lista = [];
-        
-        while ($fila = $result->fetch_assoc()) {
-                $categoria = new Categoria(
-                $fila['idCategoria'], 
-                $fila['nombre'], 
-                $fila['descripcion']
-            );
-            $lista[] = $categoria;
-        }
-        return $lista;
-    }
-
-    //Modificar una categoría
-    public function actualizar(Categoria $categoria) {
+    public function actualizar($categoria) {
         $sql = "UPDATE Categorias SET nombre = ?, descripcion = ? WHERE idCategoria = ?";
         $statement = $this->conexion->prepare($sql);
         
-        $nombreCat = $categoria->getNombre();
-        $descripCat = $categoria->getDescripcion();
-        $idCat = $categoria->getIdCategoria();
+        $nombre = $categoria->getNombre();
+        $desc = $categoria->getDescripcion();
+        $id = $categoria->getIdCategoria();
         
-        // "ssi" = String, String, Integer
-        $statement->bind_param("ssi", $nombreCat, $descripCat, $idCat);
+        $statement->bind_param("ssi", $nombre, $desc, $id);
         
-        if($statement->execute()) {
-            $statement->close();
-            return true;
-        }
+        $exito = $statement->execute();
         $statement->close();
-        return false;
-    }
-
-    //Eliminar una categoría
-    public function eliminar($idCategoria) {
-        $sql = "DELETE FROM Categorias WHERE idCategoria = ?";
-        $statement  = $this->conexion->prepare($sql);
-        $statement ->bind_param("i", $idCategoria);
-        
-        if ($statement ->execute()) {
-            $statement ->close();
-            return true;
-        } else {
-            $statement ->close();
-            return false;
-        }
+        return $exito;
     }
 }
 ?>
