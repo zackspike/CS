@@ -82,8 +82,7 @@ $misRegistros = $daoRegistro->obtenerPorUsuario($_SESSION['idUsuario']);
                                             Ver Pase
                                         </button>
 
-                                        <a href="../Controlador/RegistroController.php?accion=cancelar&idRegistro=<?php echo $registro->getIdRegistro(); ?>" 
-                                        class="btn-cancelar" onclick="return confirm('¿Seguro que deseas cancelar tu asistencia?');">
+                                        <a href="../Controlador/RegistroController.php?accion=cancelar&idRegistro=<?php echo $registro->getIdRegistro(); ?>" class="btn-cancelar" onclick="return confirm('¿Seguro que deseas cancelar tu asistencia?');">
                                             Cancelar
                                         </a>
                                     <?php endif; ?>
