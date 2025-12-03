@@ -36,7 +36,7 @@ class EditorialDAO extends CrudDAO {
     }
     
     public function actualizar($editorial) {
-        $sql = "UPDATE Editoriales SET nombreEditorial = ?, numPuestoEditorial = ?, ubicacionPuestoEditoral = ? WHERE idEditorial = ?";
+        $sql = "UPDATE Editoriales SET nombreEditorial = ?, numPuestoEditorial = ?, ubicacionPuestoEditorial = ? WHERE idEditorial = ?";
         
         $statement = $this->conexion->prepare($sql);
 
