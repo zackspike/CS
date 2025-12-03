@@ -71,7 +71,7 @@ $listaEventos = $eventoDAO->obtenerEventos();
                 </div>
                 <div class="form-col">
                     <label>Cupo Máximo de Personas:</label>
-                    <input type="number" name="numParticipantes" default="N/A" placeholder="Ingresa solo el número">
+                    <input type="number" name="numParticipantes" placeholder="Ingresa solo el número">
                 </div>
             </div>
 
