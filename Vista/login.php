@@ -1,11 +1,11 @@
 <?php
 $mensaje = "";
 if (isset($_GET['error'])) {
-    if ($_GET['error'] == 'credenciales') $mensaje = "Correo o contraseña incorrectos.";
-    if ($_GET['error'] == 'fallo_registro') $mensaje = "Error al registrar.";
+    if ($_GET['error'] == 'credenciales') {$mensaje = "Correo o contraseña incorrectos.";}
+    if ($_GET['error'] == 'fallo_registro') { $mensaje = "Error al registrar.";}
 }
-if (isset($_GET['mensaje'])) {
-    if ($_GET['mensaje'] == 'registrado') $mensaje = "El registro fue exitoso, por favor inicia sesión.";
+if (isset($_GET['mensaje']) && $_GET['mensaje'] == 'registrado') {
+    $mensaje = "El registro fue exitoso, por favor inicia sesión.";
 }
 ?>
 <!DOCTYPE>

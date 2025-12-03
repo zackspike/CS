@@ -9,6 +9,8 @@ class CategoriaDAOTest extends TestCase
     private CategoriaDAO $dao;
     private $mockConexion;
     private $mockStatement;
+
+    private const TEST_DESCRIPCION = 'Test_descripción';
     
     protected function setUp(): void
     {
@@ -320,7 +322,7 @@ class CategoriaDAOTest extends TestCase
      */
     public function testActualizarConIdCero()
     {
-        $categoria = new Categoria(0, 'Test', 'Test descripción');
+        $categoria = new Categoria(0, 'Test', self::TEST_DESCRIPCION);
         
         $this->mockConexion->expects($this->once())
             ->method('prepare')
@@ -328,7 +330,7 @@ class CategoriaDAOTest extends TestCase
         
         $this->mockStatement->expects($this->once())
             ->method('bind_param')
-            ->with('ssi', 'Test', 'Test descripción', 0)
+            ->with('ssi', 'Test', self::TEST_DESCRIPCION, 0)
             ->willReturn(true);
         
         $this->mockStatement->method('execute')->willReturn(true);
@@ -344,7 +346,7 @@ class CategoriaDAOTest extends TestCase
      */
     public function testActualizarConIdNegativo()
     {
-        $categoria = new Categoria(-1, 'Test', 'Test descripción');
+        $categoria = new Categoria(-1, 'Test', self::TEST_DESCRIPCION);
         
         $this->mockConexion->expects($this->once())
             ->method('prepare')
@@ -352,7 +354,7 @@ class CategoriaDAOTest extends TestCase
         
         $this->mockStatement->expects($this->once())
             ->method('bind_param')
-            ->with('ssi', 'Test', 'Test descripción', -1)
+            ->with('ssi', 'Test', self::TEST_DESCRIPCION, -1)
             ->willReturn(true);
         
         $this->mockStatement->method('execute')->willReturn(true);

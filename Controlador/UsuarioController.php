@@ -51,6 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 header("Location: ../Vista/login.php?error=credenciales");
             }
             break;
+        default:
+            // Acción no reconocida
+            header("Location: ../Vista/index.php?error=accion_invalida");
+            break;
     }
 }
 
