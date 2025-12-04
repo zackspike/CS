@@ -8,7 +8,12 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
     exit();
 }
 
-$idEvento = $_GET['idEvento'];
+$idEvento = isset($_GET['idEvento']) ? $_GET['idEvento'] : null;
+
+if (!is_numeric($idEvento)) {
+    echo "ID de evento inválido.";
+    exit();
+}
 
 $registroDAO = new RegistroDAO();
 $inscritos = $registroDAO->obtenerPorEvento($idEvento);
@@ -29,7 +34,7 @@ $inscritos = $registroDAO->obtenerPorEvento($idEvento);
              <div class="logo-container"><img src="../Assets/logoFILEY.png" class="logo" alt="Logo"></div>
              <div class="nav-menu">
                 <a href="gestionEventos.php" class="nav-link">Volver a Eventos</a>
-                <span class="usuario-info">Administrador: <?php echo $_SESSION['nombre']; ?></span>
+                <span class="usuario-info">Administrador: <?php echo htmlspecialchars($_SESSION['nombre']); ?></span>
                 
             </div>
         </div>
@@ -38,7 +43,7 @@ $inscritos = $registroDAO->obtenerPorEvento($idEvento);
     <div class="container">
         <div class="table-container">
             <h2 style="color:#005288;">Lista de Asistencia</h2>
-            <p style="color:#666; margin-bottom:20px;">Validación de participantes para el evento ID: #<?php echo $idEvento; ?></p>
+            <p style="color:#666; margin-bottom:20px;">Validación de participantes para el evento ID: #<?php echo htmlspecialchars($idEvento); ?></p>
 
             <?php if (empty($inscritos)): ?>
                 <p style="text-align:center; padding:30px; color:#888;">Nadie se ha inscrito a este evento aún.</p>
@@ -56,8 +61,8 @@ $inscritos = $registroDAO->obtenerPorEvento($idEvento);
                     <tbody>
                         <?php foreach($inscritos as $p): ?>
                         <tr>
-                            <td><strong><?php echo $p['nombre']; ?></strong></td>
-                            <td><?php echo $p['email']; ?></td>
+                            <td><strong><?php echo htmlspecialchars($p['nombre']); ?></strong></td>
+                            <td><?php echo htmlspecialchars($p['email']); ?></td>
                             <td><?php echo date('d/m/Y', strtotime($p['fechaRegistro'])); ?></td>
                             <td>
                                 <?php if ($p['asistio'] == 1): ?>
@@ -68,7 +73,7 @@ $inscritos = $registroDAO->obtenerPorEvento($idEvento);
                             </td>
                             <td>
                                 <?php if ($p['asistio'] == 0): ?>
-                                    <a href="../Controlador/RegistroController.php?accion=validar&idRegistro=<?php echo $p['idRegistro']; ?>&idEvento=<?php echo $idEvento; ?>"
+                                    <a href="../Controlador/RegistroController.php?accion=validar&idRegistro=<?php echo $p['idRegistro']; ?>&idEvento=<?php echo htmlspecialchars($idEvento); ?>"
                                        class="btn-validar">
                                        Validar
                                     </a>
