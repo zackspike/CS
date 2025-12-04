@@ -52,7 +52,7 @@ $listaEventos = $eventoDAO->obtenerEventos();
             <div class="alert error">Ocurrió un error en la operación.</div>
         <?php endif; ?>
         
-        <form action="../Controlador/EventoController.php" method="POST" enctype="multipart/form-data">
+        <form action="../Controlador/EventoController.php" method="POST" enctype="multipart/form-data" onsubmit="return validarHoras()">
             <input type="hidden" name="accion" value="crear_evento">
             
             <div class="form-row">
@@ -288,6 +288,19 @@ $listaEventos = $eventoDAO->obtenerEventos();
             } else if (tipo === "taller") {
                 document.getElementById("campos-taller").style.display = "block";
             }
+        }
+
+        function validarHoras() {
+            var horaInicio = document.getElementById('horaInicio').value;
+            var horaFinal = document.getElementById('horaFinal').value;
+
+            if (horaInicio && horaFinal) {
+                if (horaFinal < horaInicio) {
+                    alert('La hora de finalización no puede ser menor que la hora de inicio.');
+                    return false;
+                }
+            }
+            return true;
         }
     </script>
 </body>
