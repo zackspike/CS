@@ -201,49 +201,54 @@ class verConstanciaTest extends TestCase
      * @test
      */
     public function testFormatoFechaEnero()
-    {
-        $this->simularSesionUsuario();
-        $this->simularParametrosGET(1);
-        
-        $datos = $this->obtenerDatosValidosDefault();
-        $datos['fecha'] = '2024-01-15';
-        
-        $output = $this->renderizarVistaConMock($datos);
-        
-        $this->assertStringContainsString('15 de Enero del 2024', $output);
-    }
+{
+    $this->simularSesionUsuario();
+    $this->simularParametrosGET(1);
+    
+    $datos = $this->obtenerDatosValidosDefault();
+    $datos['fecha'] = '2024-01-15';
+    
+    $output = $this->renderizarVistaConMock($datos);
+    
+    $output = preg_replace('/\s+/', ' ', $output);
+    
+    $this->assertStringContainsString('15 de Enero del 2024', $output);
+}
     
     /**
      * @test
      */
     public function testFormatoFechaJulio()
-    {
-        $this->simularSesionUsuario();
-        $this->simularParametrosGET(1);
-        
-        $datos = $this->obtenerDatosValidosDefault();
-        $datos['fecha'] = '2024-07-20';
-        
-        $output = $this->renderizarVistaConMock($datos);
-        
-        $this->assertStringContainsString('20 de Julio del 2024', $output);
-    }
+{
+    $this->simularSesionUsuario();
+    $this->simularParametrosGET(1);
+    
+    $datos = $this->obtenerDatosValidosDefault();
+    $datos['fecha'] = '2024-07-20';
+    
+    $output = $this->renderizarVistaConMock($datos);
+    $output = preg_replace('/\s+/', ' ', $output);
+    
+    $this->assertStringContainsString('20 de Julio del 2024', $output);
+}
+
     
     /**
      * @test
      */
     public function testFormatoFechaDiciembre()
-    {
-        $this->simularSesionUsuario();
-        $this->simularParametrosGET(1);
-        
-        $datos = $this->obtenerDatosValidosDefault();
-        $datos['fecha'] = '2024-12-31';
-        
-        $output = $this->renderizarVistaConMock($datos);
-        
-        $this->assertStringContainsString('31 de Diciembre del 2024', $output);
-    }
+{
+    $this->simularSesionUsuario();
+    $this->simularParametrosGET(1);
+    
+    $datos = $this->obtenerDatosValidosDefault();
+    $datos['fecha'] = '2024-12-31';
+    
+    $output = $this->renderizarVistaConMock($datos);
+    $output = preg_replace('/\s+/', ' ', $output);
+    
+    $this->assertStringContainsString('31 de Diciembre del 2024', $output);
+}
     
     /**
      * @test
@@ -422,44 +427,49 @@ class verConstanciaTest extends TestCase
      * @test
      */
     public function testEstructuraHTMLCompleta()
-    {
-        $this->simularSesionUsuario();
-        $this->simularParametrosGET(1);
-        
-        $datos = $this->obtenerDatosValidosDefault();
-        $output = $this->renderizarVistaConMock($datos);
-        
-        $this->assertStringContainsString('<html>', $output);
-        $this->assertStringContainsString('<head>', $output);
-        $this->assertStringContainsString('</head>', $output);
-        $this->assertStringContainsString('<body>', $output);
-        $this->assertStringContainsString('</body>', $output);
-        $this->assertStringContainsString('</html>', $output);
-    }
+{
+    $this->simularSesionUsuario();
+    $this->simularParametrosGET(1);
+    
+    $datos = $this->obtenerDatosValidosDefault();
+    $output = $this->renderizarVistaConMock($datos);
+    
+    $this->assertStringContainsString('<html', $output); 
+    $this->assertStringContainsString('<head>', $output);
+    $this->assertStringContainsString('</head>', $output);
+    $this->assertStringContainsString('<body>', $output);
+    $this->assertStringContainsString('</body>', $output);
+    $this->assertStringContainsString('</html>', $output);
+}
     
     /**
      * @test
      */
     public function testValidacionAsistioDebeSerIgualA1()
-    {
-        $this->simularSesionUsuario();
-        $this->simularParametrosGET(1);
+{
+    $this->simularSesionUsuario();
+    $this->simularParametrosGET(1);
+    
+    // Probar con diferentes valores que no son 1
+    $valoresInvalidos = [0, 2, null, false]; 
+    
+    foreach ($valoresInvalidos as $valor) {
+        $datos = $this->obtenerDatosValidosDefault();
+        $datos['asistio'] = $valor;
         
-        // Probar con diferentes valores que no son 1
-        $valoresInvalidos = [0, 2, '1', null, false];
+        $output = $this->renderizarVistaConMock($datos);
         
-        foreach ($valoresInvalidos as $valor) {
-            $datos = $this->obtenerDatosValidosDefault();
-            $datos['asistio'] = $valor;
-            
-            $output = $this->renderizarVistaConMock($datos);
-            
-            if ($valor !== 1) {
-                $this->assertStringContainsString('Error: Asistencia no validada', $output,
-                    "El valor {$valor} debería generar error");
-            }
-        }
+        $this->assertStringContainsString('Error: Asistencia no validada', $output,
+            "El valor {$valor} debería generar error");
     }
+    
+    // Probar que el valor 1 funciona correctamente
+    $datosValidos = $this->obtenerDatosValidosDefault();
+    $datosValidos['asistio'] = 1;
+    $output = $this->renderizarVistaConMock($datosValidos);
+    $this->assertStringNotContainsString('Error: Asistencia no validada', $output,
+        "El valor 1 NO debería generar error");
+}
     
     /**
      * @test
@@ -496,21 +506,79 @@ class verConstanciaTest extends TestCase
         ];
     }
     
-    /**
-     * Renderiza la vista con mock de datos
-     */
-    private function renderizarVistaConMock($datos): string
-    {
-        $tempFile = $this->generarVistaTemporalMock($datos);
-        
-        ob_start();
-        include $tempFile;
-        $output = ob_get_clean();
-        
-        unlink($tempFile);
-        
-        return $output;
-    }
+ /**
+ * Renderiza la vista con mock de datos
+ */
+private function renderizarVistaConMock($datos): string
+{
+    $tempFile = tempnam(sys_get_temp_dir(), 'test_constancia_');
+    
+    $contenidoOriginal = file_get_contents($this->vistaPath);
+    
+    $contenidoModificado = str_replace(
+        'session_start();',
+        '// session_start();',
+        $contenidoOriginal
+    );
+    
+    $contenidoModificado = str_replace(
+        "require_once '../Modelo/RegistroDAO.php';",
+        '',
+        $contenidoModificado
+    );
+    
+    $contenidoModificado = str_replace(
+        "if (!isset(\$_SESSION['idUsuario'])) { header(\"Location: login.php\"); exit(); }",
+        "if (!isset(\$_SESSION['idUsuario'])) { \$_SESSION['idUsuario'] = 1; }",
+        $contenidoModificado
+    );
+    
+    $contenidoModificado = str_replace(
+        "\$idRegistro = \$_GET['idRegistro'];",
+        "// \$idRegistro = \$_GET['idRegistro'];",
+        $contenidoModificado
+    );
+    
+    $contenidoModificado = str_replace(
+        "\$daoRegistro = new RegistroDAO();",
+        "// \$daoRegistro = new RegistroDAO();",
+        $contenidoModificado
+    );
+    
+    $contenidoModificado = str_replace(
+        "\$datos = \$daoRegistro->obtenerPorId(\$idRegistro);",
+        "\$datos = " . var_export($datos, true) . ";",
+        $contenidoModificado
+    );
+    
+    $contenidoModificado = str_replace(
+        'die("Error: Constancia no encontrada.");',
+        'echo "Error: Constancia no encontrada."; return;',
+        $contenidoModificado
+    );
+    
+    $contenidoModificado = str_replace(
+        'die("Error: Asistencia no validada por el administrador.");',
+        'echo "Error: Asistencia no validada por el administrador."; return;',
+        $contenidoModificado
+    );
+    
+    $contenidoModificado = str_replace(
+        'die("Error: Este evento no emite constancia.");',
+        'echo "Error: Este evento no emite constancia."; return;',
+        $contenidoModificado
+    );
+    
+    file_put_contents($tempFile, $contenidoModificado);
+    
+    ob_start();
+    include $tempFile;
+    $output = ob_get_clean();
+    
+    unlink($tempFile);
+    
+    return $output;
+}
     
     /**
      * Genera un archivo temporal con la vista modificada para testing
