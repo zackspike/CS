@@ -150,14 +150,14 @@ $listaEventos = $eventoDAO->obtenerEventos();
             
             <div id="campos-conferencia" class="dynamic-section">
                 <h4>Detalles de Conferencia</h4>
-                <label>Tipo de Conferencia:</label>
-                <input type="text" name="tipoConferencia" placeholder="Presentación de libro, divulgación, etc...">
+                <label for="tipoConferencia">Tipo de Conferencia:</label>
+                <input type="text" id="tipoConferencia" name="tipoConferencia" placeholder="Presentación de libro, divulgación, etc...">
             </div>
 
             <div id="campos-premiacion" class="dynamic-section">
                 <h4>Detalles de Premiación</h4>
-                <label>Nombre del Ganador (Opcional):</label>
-                <input type="text" name="ganadorPremiacion" placeholder="Nombre del ganador (N/A si no se conoce)">
+                <label for="ganadorPremiacion">Nombre del Ganador (Opcional):</label>
+                <input type="text" id="ganadorPremiacion" name="ganadorPremiacion" placeholder="Nombre del ganador (N/A si no se conoce)">
             </div>
 
             <div id="campos-taller" class="dynamic-section">
