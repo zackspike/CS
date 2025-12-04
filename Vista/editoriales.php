@@ -50,9 +50,9 @@ $lista = $daoEditoriales->obtenerTodos();
             <?php if(isset($_GET['message'])): ?>
                 <div class="alert success">
                     <?php
-                        if($_GET['message']=='agregado') echo "¡Editorial agregada con éxito!";
-                        if($_GET['message']=='actualizado') echo "¡Cambios guardados correctamente!";
-                        if($_GET['message']=='eliminado') echo "Editorial eliminada.";
+                        if($_GET['message']=='agregado'){ echo "¡Editorial agregada con éxito!";}
+                        if($_GET['message']=='actualizado'){ echo "¡Cambios guardados correctamente!";}
+                        if($_GET['message']=='eliminado'){ echo "Editorial eliminada.";}
                     ?>
                 </div>
             <?php endif; ?>
@@ -65,7 +65,7 @@ $lista = $daoEditoriales->obtenerTodos();
                 <input type="hidden" name="idEditorial" value="<?php echo $editorialEditar->getIdEditorial(); ?>">
                 <?php endif; ?>
                 
-                <label>Nombre de la editorial:</label>
+                <label for="nombreEditorial">Nombre de la editorial:</label>
                 <!-- El value se rellena solo si estamos editando -->
                 <input type="text" name="nombreEditorial" required placeholder=" "
                        value="<?php echo $editorialEditar ? $editorialEditar->getNombreEditorial() : ''; ?>">
