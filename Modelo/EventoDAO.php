@@ -23,7 +23,7 @@ class EventoDAO extends DAO {
             $statement->bind_param("sssisssssiis", $titulo, $descripcion, $ponente, $numParitcipantes, $fecha, $horaInicial, $horaFin, $cupo, $tipoEvento, $idCat, $idSalon, $imagen);
             
             if (!$statement->execute()) {
-                throw new RuntimeException("Error al insertar Evento base");
+                throw new \PDOException("Error al insertar Evento base");
             }
 
             $idEventoNuevo = $this->conexion->insert_id;
@@ -33,26 +33,26 @@ class EventoDAO extends DAO {
                 $statementHijo = $this->conexion->prepare($sqlHijo);
                 $tipoConf = $evento->getTipoConferencia();
                 $statementHijo->bind_param("is", $idEventoNuevo, $tipoConf);
-                if (!$statementHijo->execute()){ throw new RuntimeException("Error al insertar Conferencia");}
+                if (!$statementHijo->execute()){ throw new \PDOException("Error al insertar Conferencia");}
                 
             } elseif ($tipoEvento == 'premiacion') {
                 $sqlHijo = "INSERT INTO Premiaciones (idEvento, ganadorPremiacion) VALUES (?, ?)";
                 $statementHijo = $this->conexion->prepare($sqlHijo);
                 $ganador = $evento->getGanadorPremiacion();
                 $statementHijo->bind_param("is", $idEventoNuevo, $ganador);
-                if (!$statementHijo->execute()){ throw new RuntimeException("Error al insertar Premiación");}
+                if (!$statementHijo->execute()){ throw new \PDOException("Error al insertar Premiación");}
                 
             } elseif ($tipoEvento == 'taller') {
                 $sqlHijo = "INSERT INTO Talleres (idEvento) VALUES (?)";
                 $statementHijo = $this->conexion->prepare($sqlHijo);
                 $statementHijo->bind_param("i", $idEventoNuevo);
-                if (!$statementHijo->execute()){ throw new RuntimeException("Error al insertar Taller");}
+                if (!$statementHijo->execute()){ throw new \PDOException("Error al insertar Taller");}
             }
 
             $this->conexion->commit();
             return true;
 
-        } catch (RuntimeException $e) {
+        } catch (\PDOException $e) {
             $this->conexion->rollback();
             echo "Error: " . $e->getMessage();
             return false;
@@ -86,7 +86,7 @@ class EventoDAO extends DAO {
             $statement->bind_param("i", $idEvento);
 
             if (!$statement->execute()) {
-                throw new RuntimeException("No se pudo eliminar el evento principal.");
+                throw new \PDOException("No se pudo eliminar el evento principal.");
             }
             $statement->close();
 
