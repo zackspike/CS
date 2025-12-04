@@ -1,6 +1,9 @@
 <?php
 session_start();
+
 require_once '../Modelo/EditorialDAO.php';
+
+use Modelo\EditorialDAO;
 
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
     header("Location: login.php");
@@ -67,12 +70,12 @@ $lista = $daoEditoriales->obtenerTodos();
                 <input type="text" name="nombreEditorial" required placeholder=" "
                        value="<?php echo $editorialEditar ? $editorialEditar->getNombreEditorial() : ''; ?>">
                 
-                <label>Número del puesto:</label>
-                <input type="number" name="numPuestoEditorial" required min="1"
+                <label for="numPuestoEditorial">Número del puesto:</label>
+                <input type="number" id="numPuestoEditorial" name="numPuestoEditorial" required min="1"
                        value="<?php echo $editorialEditar ? $editorialEditar->getNumPuestoEditorial() : ''; ?>">
                 
-                <label>Ubicación del puesto:</label>
-                <input type="text" name="ubicacionPuestoEditorial" required placeholder=" "
+                <label for="ubicacionPuestoEditorial">Ubicación del puesto:</label>
+                <input type="text" id="ubicacionPuestoEditorial" name="ubicacionPuestoEditorial" required placeholder=" "
                        value="<?php echo $editorialEditar ? $editorialEditar->getUbicacionPuestoEditorial() : ''; ?>">
                 
                 <button type="submit" class="btn" style="background-color:#005288; color:white; width:100%;">
