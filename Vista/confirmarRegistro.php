@@ -2,6 +2,11 @@
 session_start();
 if (!isset($_SESSION['idUsuario'])) { header("Location: login.php"); exit(); }
 $idEvento = isset($_GET['id']) ? $_GET['id'] : 0;
+
+if (!is_numeric($idEvento)) {
+    echo "ID de evento inválido.";
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +31,7 @@ $idEvento = isset($_GET['id']) ? $_GET['id'] : 0;
             <h2 style="color:#005288; margin-bottom: 15px;">¿Confirmar asistencia?</h2>
             <p>Se reservará tu lugar en este evento.</p>
             
-            <a href="../Controlador/RegistroController.php?accion=inscribir&idEvento=<?php echo $idEvento; ?>" class="btn-confirm">
+            <a href="../Controlador/RegistroController.php?accion=inscribir&idEvento=<?php echo htmlspecialchars($idEvento); ?>" class="btn-confirm">
                 Sí, Confirmar
             </a>
             
