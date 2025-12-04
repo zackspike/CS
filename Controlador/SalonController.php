@@ -34,7 +34,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accion']) && $_POS
     }
 }
 
-//Eliminar salón AGREGAR
+//Eliminar salón 
 elseif (isset($_GET['accion']) && $_GET['accion'] == 'eliminar') {
     
     $idSalon = $_GET['id'];

@@ -1,5 +1,5 @@
 <?php
-require_once 'conexionBD.php';
+require_once 'ConexionBD.php';
 
 class DAO {
     protected $conexion;

@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if ($usuarioEncontrado['rolUsuario'] == 'admin') {
                     header("Location: ../Vista/adminFeed.php");
                 } else {
-                    header("Location: ../Vista/index.php"); // Página de inicio normal
+                    header("Location: ../Vista/index.php");
                 }
             } else {
                 header("Location: ../Vista/login.php?error=credenciales");
