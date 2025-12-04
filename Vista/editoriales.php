@@ -3,8 +3,6 @@ session_start();
 
 require_once '../Modelo/EditorialDAO.php';
 
-use Modelo\EditorialDAO;
-
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
     header("Location: login.php");
     exit();
