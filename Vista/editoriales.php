@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once '../Modelo/EditorialDAO.php'; 
+require_once '../Modelo/EditorialDAO.php';
 
 use Modelo\EditorialDAO;
 
