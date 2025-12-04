@@ -57,26 +57,26 @@ $listaEventos = $eventoDAO->obtenerEventos();
             
             <div class="form-row">
                 <div class="form-col">
-                    <label>Título del Evento:</label>
-                    <input type="text" name="titulo" required placeholder="Titulo">
+                    <label for="titulo">Título del Evento:</label>
+                    <input type="text" id="titulo" name="titulo" required placeholder="Titulo">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-col">
-                    <label>Descripción:</label>
-                    <textarea name="descripcion" rows="3" required placeholder="Acerca del evento"></textarea>
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" rows="3" required placeholder="Acerca del evento"></textarea>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-col">
-                    <label>Ponente:</label>
-                    <input type="text" name="ponente" required placeholder="Nombre del conferencista">
+                    <label for="ponente">Ponente:</label>
+                    <input type="text" id="ponente" name="ponente" required placeholder="Nombre del conferencista">
                 </div>
                 <div class="form-col">
-                    <label>Categoría:</label>
-                    <select name="idCategoria" required>
+                    <label for="idCategoria">Categoría:</label>
+                    <select id="idCategoria" name="idCategoria" required>
                         <option value="">Selecciona una Categoría</option>
                         <?php foreach($listaCategorias as $categoria): ?>
                             <option value="<?php echo $categoria->getIdCategoria(); ?>">
@@ -89,23 +89,23 @@ $listaEventos = $eventoDAO->obtenerEventos();
 
             <div class="form-row">
                 <div class="form-col">
-                    <label>Fecha:</label>
-                    <input type="date" name="fecha" required>
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" name="fecha" required>
                 </div>
                 <div class="form-col">
-                    <label>Hora Inicio:</label>
-                    <input type="time" name="horaInicio" required>
+                    <label for="horaInicio">Hora Inicio:</label>
+                    <input type="time" id="horaInicio" name="horaInicio" required>
                 </div>
                 <div class="form-col">
-                    <label>Hora Final:</label>
-                    <input type="time" name="horaFinal" required>
+                    <label for="horaFinal">Hora Final:</label>
+                    <input type="time" id="horaFinal" name="horaFinal" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-col">
-                    <label>Salón Asignado:</label>
-                    <select name="idSalon" required>
+                    <label for="idSalon">Salón Asignado:</label>
+                    <select id="idSalon" name="idSalon" required>
                         <option value="">Selecciona un Salón</option>
                         <?php foreach($listaSalones as $salon): ?>
                             <option value="<?php echo $salon->getIdSalon(); ?>">
@@ -119,8 +119,8 @@ $listaEventos = $eventoDAO->obtenerEventos();
                 </div>
                 
                 <div class="form-col">
-                    <label>Tipo de Cupo:</label>
-                    <select name="tipoCupo">
+                    <label for="tipoCupo">Tipo de Cupo:</label>
+                    <select id="tipoCupo" name="tipoCupo">
                         <option value="Limitado">Requiere registro</option>
                         <option value="Abierto">Entrada libre</option>
                     </select>
@@ -129,8 +129,8 @@ $listaEventos = $eventoDAO->obtenerEventos();
             
             <div class="form-row">
                     <div class="form-col">
-                        <label>Imagen:</label>
-                        <input type="file" name="imagen" accept="image/*">
+                        <label for="imagen">Imagen:</label>
+                        <input type="file" id="imagen" name="imagen" accept="image/*">
                     </div>
             </div>
 
@@ -138,8 +138,8 @@ $listaEventos = $eventoDAO->obtenerEventos();
             
             <div class="form-row">
                 <div class="form-col">
-                    <label>¿Qué tipo de evento es?</label>
-                    <select name="tipoEvento" id="selectorTipo" onchange="mostrarCamposEspecificos()" required>
+                    <label for="selectorTipo">¿Qué tipo de evento es?</label>
+                    <select id="selectorTipo" name="tipoEvento" onchange="mostrarCamposEspecificos()" required>
                         <option value="">Selecciona el Tipo</option>
                         <option value="conferencia">Conferencia</option>
                         <option value="taller">Taller</option>
