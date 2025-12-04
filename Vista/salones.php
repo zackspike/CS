@@ -47,9 +47,9 @@ $lista = $daoSalones->obtenerTodos();
             <?php if(isset($_GET['message'])): ?>
                 <div class="alert success">
                     <?php
-                        if($_GET['message']=='agregado') echo "¡Salón agregado con éxito!";
-                        if($_GET['message']=='actualizado') echo "¡Cambios guardados correctamente!";
-                        if($_GET['message']=='eliminado') echo "Salón eliminado.";
+                        if($_GET['message']=='agregado') { echo "¡Salón agregado con éxito!"; }
+                        if($_GET['message']=='actualizado') { echo "¡Cambios guardados correctamente!"; }
+                        if($_GET['message']=='eliminado') { echo "Salón eliminado."; }
                     ?>
                 </div>
             <?php endif; ?>
@@ -62,14 +62,14 @@ $lista = $daoSalones->obtenerTodos();
                 <input type="hidden" name="idSalon" value="<?php echo $salonEditar->getIdSalon(); ?>">
                 <?php endif; ?>
                 
-                <label>Nombre del Salón:</label>
+                <label for="nombreSalon">Nombre del Salón:</label>
                 <!-- El value se rellena solo si estamos editando -->
-                <input type="text" name="nombreSalon" required placeholder=" "
-                       value="<?php echo $salonEditar ? $salonEditar->getNombreSalon() : ''; ?>">
+                <input type="text" id="nombreSalon" name="nombreSalon" required placeholder=" "
+                    value="<?php echo $salonEditar ? $salonEditar->getNombreSalon() : ''; ?>">
                 
-                <label>Capacidad máxima:</label>
-                <input type="number" name="maxCapacidad" required min="1" placeholder="Solo ingrese el número"
-                       value="<?php echo $salonEditar ? $salonEditar->getMaxCapacidad() : ''; ?>">
+                <label for="maxCapacidad">Capacidad máxima:</label>
+                <input type="number" id="maxCapacidad" name="maxCapacidad" required min="1" placeholder="Solo ingrese el número"
+                    value="<?php echo $salonEditar ? $salonEditar->getMaxCapacidad() : ''; ?>">
                 
                 <button type="submit" class="btn" style="background-color:#005288; color:white; width:100%;">
                     <?php echo $salonEditar ? 'Guardar Cambios' : 'Crear Salón'; ?>

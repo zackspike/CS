@@ -250,7 +250,9 @@ $listaEventos = $eventoDAO->obtenerEventos();
                             <div style="background:#eee; height:6px; width:100%; border-radius:3px; margin-top:5px; overflow:hidden;">
                                 <?php
                                         $porcentaje = ($capacidadTotal > 0) ? ($inscritos / $capacidadTotal) * 100 : 0;
-                                        if($porcentaje > 100) $porcentaje = 100;
+                                        if($porcentaje > 100) {
+                                            $porcentaje = 100;
+                                        }
                                 ?>
                                 <div style="background:<?php echo $colorEstado; ?>; height:100%; width:<?php echo $porcentaje; ?>%;"></div>
                             </div>
