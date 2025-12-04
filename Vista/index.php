@@ -107,7 +107,13 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
                                 <div class="card-content">
                                     <?php
                                         $tipo = $ev['tipoEvento'];
-                                        $claseTag = ($tipo=='taller') ? 'tag-taller' : (($tipo=='premiacion') ? 'tag-premiacion' : 'tag-conferencia');
+                                        if ($tipo == 'taller') {
+                                            $claseTag = 'tag-taller';
+                                        } elseif ($tipo == 'premiacion') {
+                                            $claseTag = 'tag-premiacion';
+                                        } else {
+                                            $claseTag = 'tag-conferencia';
+                                        }
                                     ?>
                                     <span class="card-tag <?php echo $claseTag; ?>"><?php echo ucfirst($tipo); ?></span>
 
