@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once '../Modelo/CategoriaDAO.php'; 
+require_once '../Modelo/CategoriaDAO.php';
 
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 'admin') {
     header("Location: login.php");
@@ -50,15 +50,9 @@ $lista = $daoCategorias->obtenerTodos();
             <?php if (isset($_GET['message'])): ?>
                 <div class="alert success">
                     <?php
-                        if ($_GET['message'] == 'agregado') {
-                            echo "¡Categoría agregada con éxito!";
-                        }
-                        if ($_GET['message'] == 'actualizado') {
-                            echo "¡Cambios guardados correctamente!";
-                        }
-                        if ($_GET['message'] == 'eliminado') {
-                            echo "Categoría eliminada.";
-                        }
+                        if($_GET['message']=='agregado') { echo "¡Categoría agregada con éxito!"; }
+                        if($_GET['message']=='actualizado') { echo "¡Cambios guardados correctamente!"; }
+                        if($_GET['message']=='eliminado') { echo "Categoría eliminada."; }
                     ?>
                 </div>
             <?php endif; ?>
