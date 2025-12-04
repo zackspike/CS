@@ -86,7 +86,7 @@ class EventoDAO extends DAO {
             $statement->bind_param("i", $idEvento);
 
             if (!$statement->execute()) {
-                throw new RuntimeException("No se pudo eliminar el evento principal.");
+                throw new mysqli_sql_exception("No se pudo eliminar el evento principal.");
             }
             $statement->close();
 
