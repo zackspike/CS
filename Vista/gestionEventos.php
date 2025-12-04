@@ -128,10 +128,10 @@ $listaEventos = $eventoDAO->obtenerEventos();
             </div>
             
             <div class="form-row">
-                    <div class="form-col">
-                        <label for="imagen">Imagen:</label>
-                        <input type="file" id="imagen" name="imagen" accept="image/*">
-                    </div>
+                <div class="form-col">
+                    <label for="imagen">Imagen:</label>
+                    <input type="file" id="imagen" name="imagen" accept="image/*">
+                </div>
             </div>
 
             <h3 class="section-title" style="margin-top: 30px;">Detalles Específicos</h3>
